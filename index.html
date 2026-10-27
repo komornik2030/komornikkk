@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komornik | Linki</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: #000000;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animowane tło (latające neonowe punkty) */
+        .bg-animation {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .particle {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: floatUp 6s infinite linear;
+            opacity: 0.2;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(105vh) scale(0); opacity: 0; }
+            50% { opacity: 0.8; box-shadow: 0 0 10px #fff; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+
+        /* Główna karta z neonową ramką */
+        .container {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 420px;
+            background: rgba(10, 10, 10, 0.9);
+            border: 2px solid #ffffff;
+            border-radius: 24px;
+            padding: 35px 25px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2), inset 0 0 15px rgba(255, 255, 255, 0.05);
+            animation: cardPulse 3s infinite alternate;
+            backdrop-filter: blur(12px);
+        }
+        @keyframes cardPulse {
+            0% { box-shadow: 0 0 15px rgba(255, 255, 255, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.05); }
+            100% { box-shadow: 0 0 35px rgba(255, 255, 255, 0.5), inset 0 0 20px rgba(255, 255, 255, 0.15); }
+        }
+
+        /* Nagłówek z neonowym pulsem */
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 8px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            animation: titleGlow 2s infinite alternate;
+        }
+        @keyframes titleGlow {
+            0% { text-shadow: 0 0 5px #fff; }
+            100% { text-shadow: 0 0 20px #fff, 0 0 30px #ffffff; }
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+        }
+
+        /* Lista przycisków */
+        .links-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 14px;
+            border: 1px solid #ffffff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            background: #ffffff;
+            color: #000000;
+            box-shadow: 0 0 25px #ffffff, 0 0 50px #ffffff;
+            transform: translateY(-3px) scale(1.02);
+        }
+
+        /* Specjalny styl dla Discorda (wkrótce) */
+        .btn-discord {
+            border-color: #555;
+            color: #777;
+            background: #080808;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        .badge {
+            font-size: 0.75rem;
+            background: #222;
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Animowane tło -->
+    <div class="bg-animation" id="particles"></div>
+
+    <div class="container">
+        <h1>Komornik</h1>
+        <p class="subtitle">Wszystkie moje linki w jednym miejscu</p>
+        
+        <div class="links-list">
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@__komornik?_r=1&_t=ZN-9AutjpX9LAk" target="_blank" class="btn">
+                <span>TikTok 🎬</span>
+            </a>
+
+            <!-- YouTube -->
+            <a href="https://youtube.com/@komornik_2022" target="_blank" class="btn">
+                <span>YouTube 🎥</span>
+            </a>
+
+            <!-- Discord (Wkrótce) -->
+            <div class="btn btn-discord">
+                <span>Discord 🎮</span>
+                <span class="badge">Wkrótce</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Skrypt generujący losowe animowane punkty w tle
+        const particlesContainer = document.getElementById('particles');
+        for(let i = 0; i < 35; i++) {
+            const p = document.createElement('div');
+            p.classList.add('particle');
+            const size = Math.random() * 4 + 2;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.left = Math.random() * 100 + '%';
+            p.style.animationDuration = (Math.random() * 4 + 3) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+            particlesContainer.appendChild(p);
+        }
+    </script>
+</body>
+</html>
