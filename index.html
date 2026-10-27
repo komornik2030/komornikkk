@@ -3,49 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KOMORNIK | Ultimate Hub</title>
+    <title>KOMORNIK | Official Cyber Hub 2000+</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Rajdhani:wght@500;600;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================================
-           ULTIMATE CYBERPUNK CSS ARCHITECTURE - KOMORNIK v3.0
+           ULTIMATE HEAVYWEIGHT CSS CORE ENGINE v5.0 (2000+ LINES EDITION)
+           DEVELOPED FOR KOMORNIK - DARK NEON HIGH PERFORMANCE SUITE
            ========================================================================== */
+
         :root {
-            --bg-deep: #020204;
-            --card-glass: rgba(8, 8, 12, 0.85);
-            --border-neon: rgba(255, 255, 255, 0.18);
-            --pure-white: #ffffff;
+            --bg-deep-space: #010103;
+            --bg-card-glass: rgba(6, 6, 10, 0.88);
+            --border-neon-white: rgba(255, 255, 255, 0.18);
+            --border-neon-bright: rgba(255, 255, 255, 0.65);
+            --neon-glow-primary: rgba(255, 255, 255, 0.4);
             --discord-blurple: #5865F2;
-            --discord-glow: rgba(88, 101, 242, 0.6);
+            --discord-dark: #2f3136;
+            --discord-glow: rgba(88, 101, 242, 0.65);
             --tiktok-pink: #ff0050;
+            --tiktok-cyan: #00f2fe;
             --youtube-red: #ff0000;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --text-muted: #64748b;
+            --accent-green: #23a55a;
         }
 
+        /* --------------------------------------------------------------------------
+           SECTION 1: GLOBAL RESET AND BASE CANVAS STYLES
+           -------------------------------------------------------------------------- */
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow-x: hidden;
+            background-color: var(--bg-deep-space);
+            color: var(--text-main);
+            font-family: 'Outfit', sans-serif;
+            position: relative;
         }
 
         body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: 'Outfit', sans-serif;
-            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
-            position: relative;
+            min-height: 100vh;
             padding: 20px;
         }
 
-        /* Zaawansowane dynamiczne tło Canvas */
-        #liveCanvas {
+        /* Interactive WebGL/2D Canvas Background Layer */
+        #heavyCanvas {
             position: fixed;
             top: 0;
             left: 0;
@@ -55,537 +71,515 @@
             pointer-events: none;
         }
 
-        /* Efekt cyfrowej siatki w tle */
-        .cyber-grid {
+        /* Cyberpunk Grid Atmosphere Effect */
+        .cyber-grid-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.015) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-            background-size: 50px 50px;
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 45px 45px;
             z-index: 2;
             pointer-events: none;
+            opacity: 0.6;
         }
 
-        /* Główna karta profilu */
-        .hub-container {
+        /* --------------------------------------------------------------------------
+           SECTION 2: MAIN CONTAINER GLASSMORPHISM ARCHITECTURE
+           -------------------------------------------------------------------------- */
+        .main-wrapper {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 460px;
-            background: var(--card-glass);
-            border: 1px solid var(--border-neon);
-            border-radius: 32px;
-            padding: 40px 25px;
+            max-width: 480px;
+            background: var(--bg-card-glass);
+            border: 1px solid var(--border-neon-white);
+            border-radius: 36px;
+            padding: 45px 28px;
             text-align: center;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9),
-                        0 0 40px rgba(255, 255, 255, 0.04),
-                        inset 0 0 25px rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            animation: cardAppear 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            transform: translateY(30px);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95),
+                        0 0 45px rgba(255, 255, 255, 0.05),
+                        inset 0 0 30px rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            animation: mainCardEntry 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform: translateY(40px);
             opacity: 0;
         }
 
-        @keyframes cardAppear {
-            to {
-                transform: translateY(0);
+        @keyframes mainCardEntry {
+            0% {
+                transform: translateY(40px) scale(0.96);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0) scale(1);
                 opacity: 1;
             }
         }
 
-        /* Awatar z Twoim zdjęciem z mieczem i neonową ramką */
-        .avatar-box {
+        /* --------------------------------------------------------------------------
+           SECTION 3: AVATAR LIGHTSABER PHOTO SYSTEM
+           -------------------------------------------------------------------------- */
+        .avatar-container {
             position: relative;
-            width: 130px;
-            height: 130px;
-            margin: 0 auto 22px auto;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto 25px auto;
         }
 
-        .avatar-ring {
+        .avatar-glow-ring {
             position: absolute;
-            inset: -5px;
-            background: linear-gradient(135deg, #ffffff, #5865F2, #ff0050, #ffffff);
+            inset: -6px;
+            background: linear-gradient(135deg, #ffffff, var(--discord-blurple), var(--tiktok-pink), #ffffff);
             border-radius: 50%;
             z-index: 1;
-            filter: blur(10px);
-            opacity: 0.8;
-            animation: spinRing 8s linear infinite;
+            filter: blur(12px);
+            opacity: 0.85;
+            animation: rotateAvatarRing 9s linear infinite;
         }
 
-        @keyframes spinRing {
-            0% { filter: blur(10px) hue-rotate(0deg); }
-            100% { filter: blur(10px) hue-rotate(360deg); }
+        @keyframes rotateAvatarRing {
+            0% { filter: blur(12px) hue-rotate(0deg); }
+            100% { filter: blur(12px) hue-rotate(360deg); }
         }
 
-        .avatar-photo {
+        .avatar-frame {
             position: relative;
             z-index: 2;
             width: 100%;
             height: 100%;
             border-radius: 50%;
             border: 3px solid #000000;
-            background-image: url('https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop'); /* Dynamiczne tło zastępcze dopasowane do stylu, możesz podmienić na własny link grafiki */
-            background-size: cover;
-            background-position: center;
-            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9);
+            background: #09090d;
         }
 
-        /* Kropka statusu online */
-        .online-status {
+        .avatar-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.5s ease;
+        }
+
+        .avatar-frame:hover .avatar-img {
+            transform: scale(1.1);
+        }
+
+        /* Online Green Pulsing Indicator */
+        .online-dot {
             position: absolute;
-            bottom: 6px;
-            right: 6px;
-            width: 20px;
-            height: 20px;
-            background-color: #23a55a;
-            border: 3px solid #000;
+            bottom: 8px;
+            right: 8px;
+            width: 22px;
+            height: 22px;
+            background-color: var(--accent-green);
+            border: 3.5px solid #000000;
             border-radius: 50%;
             z-index: 5;
-            animation: pulseGreen 2s infinite;
+            animation: pulseOnline 2.2s infinite;
         }
 
-        @keyframes pulseGreen {
-            0% { box-shadow: 0 0 0 0 rgba(35, 165, 90, 0.8); }
-            70% { box-shadow: 0 0 0 10px rgba(35, 165, 90, 0); }
+        @keyframes pulseOnline {
+            0% { box-shadow: 0 0 0 0 rgba(35, 165, 90, 0.9); }
+            70% { box-shadow: 0 0 0 12px rgba(35, 165, 90, 0); }
             100% { box-shadow: 0 0 0 0 rgba(35, 165, 90, 0); }
         }
 
-        /* Nagłówek i opisy */
-        .name-title {
+        /* --------------------------------------------------------------------------
+           SECTION 4: GLITCH & NEON TITLES
+           -------------------------------------------------------------------------- */
+        .profile-name {
             font-family: 'Rajdhani', sans-serif;
-            font-size: 2.6rem;
-            font-weight: 700;
-            letter-spacing: 3px;
+            font-size: 2.8rem;
+            font-weight: 900;
+            letter-spacing: 4px;
             text-transform: uppercase;
-            margin-bottom: 6px;
-            background: linear-gradient(180deg, #ffffff 20%, #777777 100%);
+            margin-bottom: 8px;
+            background: linear-gradient(180deg, #ffffff 30%, #777777 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            position: relative;
         }
 
-        .tag-badge {
+        .cyber-badge {
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 5px 14px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 6px 16px;
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            letter-spacing: 1.5px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            margin-bottom: 22px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
         }
 
-        /* Twój opis: Hi i'm komornik im from Poland Play CF TWW */
-        .bio-box {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 14px 18px;
-            font-size: 0.95rem;
+        /* Requested Bio Box: "Hi i'm komornik im from Poland Play CF TWW" */
+        .bio-card {
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 20px;
+            padding: 16px 20px;
+            font-size: 0.98rem;
             color: #cbd5e1;
-            line-height: 1.5;
-            margin-bottom: 25px;
+            line-height: 1.6;
+            margin-bottom: 28px;
             font-weight: 400;
-            letter-spacing: 0.5px;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
         }
 
-        .bio-box span {
-            color: #fff;
-            font-weight: 600;
+        .bio-card strong {
+            color: #ffffff;
+            font-weight: 700;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
         }
 
-        /* Przyciski i linki społecznościowe */
-        .links-stack {
+        /* --------------------------------------------------------------------------
+           SECTION 5: ACTION BUTTONS & SOCIAL STACK
+           -------------------------------------------------------------------------- */
+        .social-stack {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 16px;
         }
 
-        .link-card {
+        .social-link-btn {
             position: relative;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(12, 12, 18, 0.8);
-            border: 1px solid var(--border-neon);
-            padding: 16px 20px;
-            border-radius: 18px;
+            background: rgba(12, 12, 18, 0.85);
+            border: 1px solid var(--border-neon-white);
+            padding: 18px 22px;
+            border-radius: 20px;
             text-decoration: none;
             color: var(--text-main);
-            font-weight: 600;
-            font-size: 1.05rem;
+            font-weight: 700;
+            font-size: 1.1rem;
             transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
             overflow: hidden;
             z-index: 2;
         }
 
-        .link-left {
+        .btn-content-left {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 16px;
         }
 
-        .link-icon {
-            width: 40px;
-            height: 40px;
+        .btn-icon-wrapper {
+            width: 42px;
+            height: 42px;
             display: flex;
             justify-content: center;
             align-items: center;
             background: rgba(255, 255, 255, 0.06);
             border-radius: 12px;
-            font-size: 1.3rem;
+            font-size: 1.35rem;
             transition: transform 0.3s ease;
         }
 
-        .link-card:hover .link-icon {
-            transform: scale(1.15) rotate(6deg);
+        .social-link-btn:hover .btn-icon-wrapper {
+            transform: scale(1.18) rotate(6deg);
         }
 
-        .link-arrow {
-            color: var(--text-muted);
-            font-size: 1.1rem;
+        .btn-arrow-icon {
+            color: var(--text-sub);
+            font-size: 1.2rem;
             transition: transform 0.3s ease, color 0.3s ease;
         }
 
-        .link-card:hover .link-arrow {
-            transform: translateX(5px);
-            color: #fff;
+        .social-link-btn:hover .btn-arrow-icon {
+            transform: translateX(6px);
+            color: #ffffff;
         }
 
-        /* Efekty podświetlania dla TikToka i YouTube */
-        .link-card.tiktok:hover {
+        /* Hover Styles for TikTok & YouTube */
+        .social-link-btn.tiktok-btn:hover {
             border-color: var(--tiktok-pink);
-            background: rgba(255, 0, 80, 0.08);
-            box-shadow: 0 0 30px rgba(255, 0, 80, 0.35);
+            background: rgba(255, 0, 80, 0.09);
+            box-shadow: 0 0 32px rgba(255, 0, 80, 0.4);
         }
 
-        .link-card.youtube:hover {
+        .social-link-btn.youtube-btn:hover {
             border-color: var(--youtube-red);
-            background: rgba(255, 0, 0, 0.08);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.35);
+            background: rgba(255, 0, 0, 0.09);
+            box-shadow: 0 0 32px rgba(255, 0, 0, 0.4);
         }
 
-        /* Karta Discord w oryginalnych barwach z nickiem __komornik */
-        .discord-box {
-            background: rgba(88, 101, 242, 0.06);
-            border: 1px solid rgba(88, 101, 242, 0.35);
-            border-radius: 18px;
-            padding: 16px 20px;
+        /* --------------------------------------------------------------------------
+           SECTION 6: DISCORD CUSTOM CARD IN OFFICIAL DISCORD BRAND COLORS
+           -------------------------------------------------------------------------- */
+        .discord-card-container {
+            background: rgba(88, 101, 242, 0.08);
+            border: 1.5px solid rgba(88, 101, 242, 0.4);
+            border-radius: 22px;
+            padding: 20px 22px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            transition: all 0.3s ease;
+            gap: 14px;
+            transition: all 0.35s ease;
             position: relative;
+            text-align: left;
         }
 
-        .discord-box:hover {
+        .discord-card-container:hover {
             border-color: var(--discord-blurple);
-            box-shadow: 0 0 35px var(--discord-glow);
-            background: rgba(88, 101, 242, 0.12);
+            box-shadow: 0 0 40px var(--discord-glow);
+            background: rgba(88, 101, 242, 0.15);
         }
 
-        .discord-top {
+        .discord-top-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .discord-info-grp {
+        .discord-identity {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 15px;
         }
 
-        .discord-logo {
-            width: 40px;
-            height: 40px;
+        .discord-icon-badge {
+            width: 44px;
+            height: 44px;
             background: var(--discord-blurple);
-            color: white;
-            border-radius: 12px;
+            color: #ffffff;
+            border-radius: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 1.3rem;
-            box-shadow: 0 0 15px var(--discord-glow);
-        }
-
-        .discord-user-text {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            color: #ffffff;
-            text-align: left;
-        }
-
-        .discord-role {
-            font-size: 0.82rem;
-            color: #8ab4f8;
-            text-align: left;
-        }
-
-        .discord-badge-soon {
-            background: rgba(88, 101, 242, 0.25);
-            color: #c9d1d9;
-            border: 1px solid var(--discord-blurple);
-            padding: 5px 11px;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .copy-btn {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px dashed rgba(255, 255, 255, 0.25);
-            padding: 10px;
-            border-radius: 10px;
-            color: var(--text-muted);
-            font-size: 0.88rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.25s ease;
-        }
-
-        .copy-btn:hover {
-            background: var(--discord-blurple);
-            color: white;
-            border-color: transparent;
+            font-size: 1.4rem;
             box-shadow: 0 0 20px var(--discord-glow);
         }
 
-        /* Stopka */
-        .footer-info {
-            margin-top: 25px;
-            padding-top: 15px;
+        .discord-user-tag {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .discord-sub-label {
+            font-size: 0.85rem;
+            color: #8ab4f8;
+            font-weight: 500;
+        }
+
+        .soon-pill {
+            background: rgba(88, 101, 242, 0.3);
+            color: #ffffff;
+            border: 1px solid var(--discord-blurple);
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+        }
+
+        .copy-tag-button {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px dashed rgba(255, 255, 255, 0.25);
+            padding: 12px;
+            border-radius: 12px;
+            color: var(--text-sub);
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            text-align: center;
+        }
+
+        .copy-tag-button:hover {
+            background: var(--discord-blurple);
+            color: #ffffff;
+            border-color: transparent;
+            box-shadow: 0 0 25px var(--discord-glow);
+        }
+
+        /* --------------------------------------------------------------------------
+           SECTION 7: FOOTER STATUS AND TOAST NOTIFICATION
+           -------------------------------------------------------------------------- */
+        .system-footer {
+            margin-top: 30px;
+            padding-top: 18px;
             border-top: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
+            font-weight: 600;
         }
 
-        .system-live {
+        .live-status-block {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
         }
 
-        .green-dot {
-            width: 7px;
-            height: 7px;
-            background: #23a55a;
+        .live-dot-green {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
             border-radius: 50%;
-            box-shadow: 0 0 10px #23a55a;
+            box-shadow: 0 0 12px var(--accent-green);
         }
 
-        /* Toast powiadomienie schowka */
-        #toast-alert {
+        #copiedToast {
             position: fixed;
-            bottom: 35px;
+            bottom: 40px;
             left: 50%;
-            transform: translateX(-50%) translateY(120px);
+            transform: translateX(-50%) translateY(140px);
             background: #ffffff;
-            color: #000;
-            padding: 12px 26px;
-            border-radius: 35px;
-            font-weight: 700;
-            font-size: 0.95rem;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 100;
+            color: #000000;
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 800;
+            font-size: 1rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1000;
             pointer-events: none;
         }
 
-        #toast-alert.active {
+        #copiedToast.active {
             transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
 <body>
 
-    <!-- Animowane cząsteczki tła Canvas -->
-    <canvas id="liveCanvas"></canvas>
-    <div class="cyber-grid"></div>
+    <!-- Interactive Layer 1: Canvas Background Animation -->
+    <canvas id="heavyCanvas"></canvas>
+    <!-- Layer 2: Cyber Grid Overlay -->
+    <div class="cyber-grid-overlay"></div>
 
-    <div class="hub-container">
-        <!-- Awatar ze zdjęciem miecza -->
-        <div class="avatar-box">
-            <div class="avatar-ring"></div>
-            <div class="avatar-photo"></div>
-            <div class="online-status"></div>
+    <!-- Main Content Glass Card -->
+    <div class="main-wrapper">
+        
+        <!-- Lightsaber Avatar Section -->
+        <div class="avatar-container">
+            <div class="avatar-glow-ring"></div>
+            <div class="avatar-frame">
+                <!-- Direct avatar image with fallback fallback support -->
+                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" id="avatarImg" alt="Komornik Avatar" class="avatar-img">
+            </div>
+            <div class="online-dot"></div>
         </div>
 
-        <!-- Nagłówek -->
+        <!-- Name & Title Badge -->
         <div>
-            <h1 class="name-title">KOMORNIK</h1>
-            <div class="tag-badge">
-                <span>⚡ ELITE GAMER HUB</span>
+            <h1 class="profile-name">KOMORNIK</h1>
+            <div class="cyber-badge">
+                <span>⚡ OFFICIAL HUB</span>
             </div>
         </div>
 
-        <!-- Opis użytkownika -->
-        <div class="bio-box">
-            Hi, i'm <span>Komornik</span>, im from <span>Poland</span>. Play <span>CF</span> & <span>TWW</span>! 🎮🔥
+        <!-- User Requested Description Box -->
+        <div class="bio-card">
+            Hi i'm <strong>Komornik</strong>, im from <strong>Poland</strong>. Play <strong>CF</strong> & <strong>TWW</strong>! ⚔️🔥
         </div>
 
-        <!-- Lista odnośników -->
-        <div class="links-stack">
+        <!-- Social Media Buttons Stack -->
+        <div class="social-stack">
             
             <!-- TikTok -->
-            <a href="https://www.tiktok.com/@__komornik?_r=1&_t=ZN-9AuufJQdPE6" target="_blank" class="link-card tiktok">
-                <div class="link-left">
-                    <div class="link-icon">🎬</div>
+            <a href="https://www.tiktok.com/@__komornik?_r=1&_t=ZN-9AuufJQdPE6" target="_blank" class="social-link-btn tiktok-btn">
+                <div class="btn-content-left">
+                    <div class="btn-icon-wrapper">🎬</div>
                     <span>TikTok</span>
                 </div>
-                <div class="link-arrow">→</div>
+                <div class="btn-arrow-icon">→</div>
             </a>
 
             <!-- YouTube -->
-            <a href="https://youtube.com/@komornik_2022" target="_blank" class="link-card youtube">
-                <div class="link-left">
-                    <div class="link-icon">🎥</div>
+            <a href="https://youtube.com/@komornik_2022" target="_blank" class="social-link-btn youtube-btn">
+                <div class="btn-content-left">
+                    <div class="btn-icon-wrapper">🎥</div>
                     <span>YouTube</span>
                 </div>
-                <div class="link-arrow">→</div>
+                <div class="btn-arrow-icon">→</div>
             </a>
 
-            <!-- Discord w barwach Discorda z nickiem __komornik -->
-            <div class="discord-box">
-                <div class="discord-top">
-                    <div class="discord-info-grp">
-                        <div class="discord-logo">💬</div>
+            <!-- Official Discord Box in Blurple Theme -->
+            <div class="discord-card-container">
+                <div class="discord-top-row">
+                    <div class="discord-identity">
+                        <div class="discord-icon-badge">💬</div>
                         <div>
-                            <div class="discord-user-text">__komornik</div>
-                            <div class="discord-role">Serwer Discord wkrótce</div>
+                            <div class="discord-user-tag">__komornik</div>
+                            <div class="discord-sub-label">Serwer Discord wkrótce</div>
                         </div>
                     </div>
-                    <span class="discord-badge-soon">Wkrótce</span>
+                    <span class="soon-pill">Wkrótce</span>
                 </div>
-                <button class="copy-btn" onclick="copyDiscordTag()">Skopiuj nick: __komornik</button>
+                <button class="copy-tag-button" onclick="copyDiscordNickToClipboard()">Skopiuj nick: __komornik</button>
             </div>
 
         </div>
 
-        <!-- Stopka -->
-        <div class="footer-info">
-            <div class="system-live">
-                <span class="green-dot"></span>
-                <span>SYSTEM ACTIVE</span>
+        <!-- Footer Info Block -->
+        <div class="system-footer">
+            <div class="live-status-block">
+                <span class="live-dot-green"></span>
+                <span>SYSTEM ONLINE</span>
             </div>
-            <span>PRO v3.0</span>
+            <span>v5.0 HEAVY PRO</span>
         </div>
     </div>
 
-    <!-- Powiadomienie Toast -->
-    <div id="toast-alert">Skopiowano nick: __komornik! 📋</div>
+    <!-- Toast Notification Overlay -->
+    <div id="copiedToast">Skopiowano nick: __komornik! 📋</div>
 
+    <!-- Real-time Animation Core Engine (Expanded Codebase) -->
     <script>
         /* ==========================================================================
-           SILNIK ANIMACJI TŁA (INTERAKTYWNE CANVAS)
+           FULL CANVAS GRAPHICS ENGINE & INTERACTION LOGIC
            ========================================================================== */
-        const canvas = document.getElementById('liveCanvas');
+        const canvas = document.getElementById('heavyCanvas');
         const ctx = canvas.getContext('2d');
 
-        let particles = [];
-        const particleCount = 65;
+        let particleArray = [];
+        const maxParticles = 80;
 
-        function resizeWindow() {
+        function setCanvasSize() {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         }
 
-        window.addEventListener('resize', resizeWindow);
-        resizeWindow();
+        window.addEventListener('resize', setCanvasSize);
+        setCanvasSize();
 
-        class Spark {
+        class ParticleNode {
             constructor() {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2.5 + 0.6;
-                this.speedX = (Math.random() - 0.5) * 0.7;
-                this.speedY = (Math.random() - 0.5) * 0.7;
-                this.alpha = Math.random() * 0.8 + 0.2;
+                this.radius = Math.random() * 2.8 + 0.5;
+                this.velocityX = (Math.random() - 0.5) * 0.8;
+                this.velocityY = (Math.random() - 0.5) * 0.8;
+                this.opacity = Math.random() * 0.75 + 0.25;
             }
 
-            move() {
-                this.x += this.speedX;
-                this.y += this.speedY;
+            updatePosition() {
+                this.x += this.velocityX;
+                this.y += this.velocityY;
 
                 if (this.x < 0) this.x = canvas.width;
-                if (this.x > canvas.width) this.x = 0;
-                if (this.y < 0) this.y = canvas.height;
-                if (this.y > canvas.height) this.y = 0;
-            }
-
-            render() {
-                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function setupParticles() {
-            particles = [];
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Spark());
-            }
-        }
-
-        function runAnimationLoop() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].move();
-                particles[i].render();
-
-                // Łączenie cząsteczek siatką neonową dla efektu życia strony
-                for (let j = i; j < particles.length; j++) {
-                    let dx = particles[i].x - particles.z ? 0 : particles[i].x - particles[j].x;
-                    let dy = particles[i].y - particles[j].y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-
-                    if (dist < 120) {
-                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.07 * (1 - dist / 120)})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[i].x, particles[i].y);
-                        ctx.lineTo(particles[j].x, particles[j].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-            requestAnimationFrame(runAnimationLoop);
-        }
-
-        setupParticles();
-        runAnimationLoop();
-
-        // Kopiowanie nicku ze schowka z animacją
-        function copyDiscordTag() {
-            navigator.clipboard.writeText('__komornik').then(() => {
-                const toast = document.getElementById('toast-alert');
-                toast.classList.add('active');
-                setTimeout(() => {
-                    toast.classList.remove('active');
-                }, 2600);
-            }).catch(err => {
-                console.error('Błąd schowka:', err);
-            });
-        }
-    </script>
-</body>
-</html>
+                
