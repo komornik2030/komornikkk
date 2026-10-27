@@ -1,585 +1,385 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>KOMORNIK | Official Cyber Hub 2000+</title>
+    <title>KOMORNIK — 1.0 BETA</title>
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;900&family=Rajdhani:wght@500;600;700;900&family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* ==========================================================================
-           ULTIMATE HEAVYWEIGHT CSS CORE ENGINE v5.0 (2000+ LINES EDITION)
-           DEVELOPED FOR KOMORNIK - DARK NEON HIGH PERFORMANCE SUITE
-           ========================================================================== */
-
-        :root {
-            --bg-deep-space: #010103;
-            --bg-card-glass: rgba(6, 6, 10, 0.88);
-            --border-neon-white: rgba(255, 255, 255, 0.18);
-            --border-neon-bright: rgba(255, 255, 255, 0.65);
-            --neon-glow-primary: rgba(255, 255, 255, 0.4);
-            --discord-blurple: #5865F2;
-            --discord-dark: #2f3136;
-            --discord-glow: rgba(88, 101, 242, 0.65);
-            --tiktok-pink: #ff0050;
-            --tiktok-cyan: #00f2fe;
-            --youtube-red: #ff0000;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --text-muted: #64748b;
-            --accent-green: #23a55a;
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;900&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@500;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        monoDark: '#030303',
+                        monoCard: '#0a0a0c',
+                        monoBorder: '#26262a',
+                        monoGlow: '#ffffff',
+                    },
+                    fontFamily: {
+                        orbitron: ['Orbitron', 'sans-serif'],
+                        rajdhani: ['Rajdhani', 'sans-serif'],
+                        cinzel: ['Cinzel', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-glow': 'pulseGlow 2.5s ease-in-out infinite alternate',
+                        'scanline': 'scanline 10s linear infinite',
+                        'float': 'float 5s ease-in-out infinite',
+                        'shimmer': 'shimmer 3s infinite',
+                    },
+                    keyframes: {
+                        pulseGlow: {
+                            '0%': { boxShadow: '0 0 15px rgba(255, 255, 255, 0.15), inset 0 0 10px rgba(255, 255, 255, 0.05)' },
+                            '100%': { boxShadow: '0 0 35px rgba(255, 255, 255, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.2)' }
+                        },
+                        scanline: {
+                            '0%': { transform: 'translateY(-100%)' },
+                            '100%': { transform: 'translateY(1000%)' }
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' }
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' }
+                        }
+                    }
+                }
+            }
         }
-
-        /* --------------------------------------------------------------------------
-           SECTION 1: GLOBAL RESET AND BASE CANVAS STYLES
-           -------------------------------------------------------------------------- */
+    </script>
+    <style>
         * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
-        }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow-x: hidden;
-            background-color: var(--bg-deep-space);
-            color: var(--text-main);
-            font-family: 'Outfit', sans-serif;
-            position: relative;
+            box-sizing: border-box;
         }
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: #000000;
+            color: #e5e5e5;
+            overflow-x: hidden;
             min-height: 100vh;
-            padding: 20px;
+            perspective: 1200px;
         }
 
-        /* Interactive WebGL/2D Canvas Background Layer */
-        #heavyCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 1;
-            pointer-events: none;
+        /* Mono CRT Scanline Overlay */
+        .crt-overlay {
+            background: linear-gradient(
+                rgba(18, 18, 18, 0) 50%, 
+                rgba(0, 0, 0, 0.6) 50%
+            );
+            background-size: 100% 4px;
         }
 
-        /* Cyberpunk Grid Atmosphere Effect */
-        .cyber-grid-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        /* Mono Grid */
+        .mono-grid {
+            background-size: 32px 32px;
             background-image: 
-                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-            background-size: 45px 45px;
-            z-index: 2;
-            pointer-events: none;
-            opacity: 0.6;
+                linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         }
 
-        /* --------------------------------------------------------------------------
-           SECTION 2: MAIN CONTAINER GLASSMORPHISM ARCHITECTURE
-           -------------------------------------------------------------------------- */
-        .main-wrapper {
+        /* Monochromatic Glitch Text Effect */
+        .mono-glitch {
             position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 480px;
-            background: var(--bg-card-glass);
-            border: 1px solid var(--border-neon-white);
-            border-radius: 36px;
-            padding: 45px 28px;
-            text-align: center;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95),
-                        0 0 45px rgba(255, 255, 255, 0.05),
-                        inset 0 0 30px rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            animation: mainCardEntry 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            transform: translateY(40px);
-            opacity: 0;
+            display: inline-block;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
         }
 
-        @keyframes mainCardEntry {
-            0% {
-                transform: translateY(40px) scale(0.96);
-                opacity: 0;
-            }
-            100% {
-                transform: translateY(0) scale(1);
-                opacity: 1;
-            }
-        }
-
-        /* --------------------------------------------------------------------------
-           SECTION 3: AVATAR LIGHTSABER PHOTO SYSTEM
-           -------------------------------------------------------------------------- */
-        .avatar-container {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin: 0 auto 25px auto;
-        }
-
-        .avatar-glow-ring {
+        .mono-glitch::before, .mono-glitch::after {
+            content: attr(data-text);
             position: absolute;
-            inset: -6px;
-            background: linear-gradient(135deg, #ffffff, var(--discord-blurple), var(--tiktok-pink), #ffffff);
-            border-radius: 50%;
-            z-index: 1;
-            filter: blur(12px);
-            opacity: 0.85;
-            animation: rotateAvatarRing 9s linear infinite;
-        }
-
-        @keyframes rotateAvatarRing {
-            0% { filter: blur(12px) hue-rotate(0deg); }
-            100% { filter: blur(12px) hue-rotate(360deg); }
-        }
-
-        .avatar-frame {
-            position: relative;
-            z-index: 2;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            border: 3px solid #000000;
-            overflow: hidden;
-            box-shadow: inset 0 0 25px rgba(0, 0, 0, 0.9);
-            background: #09090d;
+            clip: rect(0, 0, 0, 0);
         }
 
-        .avatar-img {
+        .mono-glitch:hover::before {
+            left: -2px;
+            text-shadow: 2px 0 #ffffff;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim 0.3s infinite linear alternate-reverse;
+        }
+
+        .mono-glitch:hover::after {
+            left: 2px;
+            text-shadow: -2px 0 #888888;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim2 0.3s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(12px, 9999px, 44px, 0); }
+            20% { clip: rect(38px, 9999px, 88px, 0); }
+            40% { clip: rect(2px, 9999px, 12px, 0); }
+            60% { clip: rect(60px, 9999px, 75px, 0); }
+            80% { clip: rect(22px, 9999px, 30px, 0); }
+            100% { clip: rect(50px, 9999px, 95px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(40px, 9999px, 15px, 0); }
+            20% { clip: rect(65px, 9999px, 35px, 0); }
+            40% { clip: rect(10px, 9999px, 80px, 0); }
+            60% { clip: rect(85px, 9999px, 10px, 0); }
+            80% { clip: rect(30px, 9999px, 55px, 0); }
+            100% { clip: rect(15px, 9999px, 70px, 0); }
+        }
+
+        /* Glassmorphic Dark Card */
+        .glass-dark-card {
+            background: rgba(8, 8, 10, 0.88);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            box-shadow: 
+                0 30px 60px -12px rgba(0, 0, 0, 0.95),
+                0 0 30px rgba(255, 255, 255, 0.05),
+                inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            transform-style: preserve-3d;
+            will-change: transform;
+            transition: transform 0.15s ease-out, box-shadow 0.3s ease;
+        }
+
+        .glass-dark-card:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                0 35px 70px -15px rgba(0, 0, 0, 1),
+                0 0 40px rgba(255, 255, 255, 0.12),
+                inset 0 1px 2px rgba(255, 255, 255, 0.3);
+        }
+
+        /* Mono Dynamic Buttons */
+        .mono-btn {
+            position: relative;
+            background: rgba(15, 15, 18, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            will-change: transform;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .mono-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            object-position: center;
-            transition: transform 0.5s ease;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+            transition: left 0.6s ease;
         }
 
-        .avatar-frame:hover .avatar-img {
-            transform: scale(1.1);
+        .mono-btn:hover::before {
+            left: 100%;
         }
 
-        /* Online Green Pulsing Indicator */
-        .online-dot {
-            position: absolute;
-            bottom: 8px;
-            right: 8px;
-            width: 22px;
-            height: 22px;
-            background-color: var(--accent-green);
-            border: 3.5px solid #000000;
-            border-radius: 50%;
-            z-index: 5;
-            animation: pulseOnline 2.2s infinite;
+        .mono-btn:hover {
+            background: rgba(25, 25, 30, 0.9);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.8), 0 0 15px rgba(255, 255, 255, 0.15);
         }
 
-        @keyframes pulseOnline {
-            0% { box-shadow: 0 0 0 0 rgba(35, 165, 90, 0.9); }
-            70% { box-shadow: 0 0 0 12px rgba(35, 165, 90, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(35, 165, 90, 0); }
+        /* Audio Equalizer Bars */
+        .eq-bar {
+            width: 3px;
+            background: #ffffff;
+            border-radius: 2px;
+            animation: eqAnim 0.8s ease-in-out infinite alternate;
+        }
+        .eq-bar:nth-child(1) { height: 50%; animation-delay: 0.1s; }
+        .eq-bar:nth-child(2) { height: 100%; animation-delay: 0.3s; }
+        .eq-bar:nth-child(3) { height: 30%; animation-delay: 0.2s; }
+        .eq-bar:nth-child(4) { height: 80%; animation-delay: 0.4s; }
+
+        @keyframes eqAnim {
+            0% { transform: scaleY(0.2); }
+            100% { transform: scaleY(1); }
         }
 
-        /* --------------------------------------------------------------------------
-           SECTION 4: GLITCH & NEON TITLES
-           -------------------------------------------------------------------------- */
-        .profile-name {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 2.8rem;
-            font-weight: 900;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 8px;
-            background: linear-gradient(180deg, #ffffff 30%, #777777 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
-            position: relative;
-        }
-
-        .cyber-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: var(--text-sub);
-            margin-bottom: 22px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        /* Requested Bio Box: "Hi i'm komornik im from Poland Play CF TWW" */
-        .bio-card {
-            background: rgba(255, 255, 255, 0.035);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: 20px;
-            padding: 16px 20px;
-            font-size: 0.98rem;
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 28px;
-            font-weight: 400;
-            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .bio-card strong {
-            color: #ffffff;
-            font-weight: 700;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
-        }
-
-        /* --------------------------------------------------------------------------
-           SECTION 5: ACTION BUTTONS & SOCIAL STACK
-           -------------------------------------------------------------------------- */
-        .social-stack {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .social-link-btn {
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(12, 12, 18, 0.85);
-            border: 1px solid var(--border-neon-white);
-            padding: 18px 22px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 700;
-            font-size: 1.1rem;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden;
-            z-index: 2;
-        }
-
-        .btn-content-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .btn-icon-wrapper {
-            width: 42px;
-            height: 42px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 12px;
-            font-size: 1.35rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-link-btn:hover .btn-icon-wrapper {
-            transform: scale(1.18) rotate(6deg);
-        }
-
-        .btn-arrow-icon {
-            color: var(--text-sub);
-            font-size: 1.2rem;
-            transition: transform 0.3s ease, color 0.3s ease;
-        }
-
-        .social-link-btn:hover .btn-arrow-icon {
-            transform: translateX(6px);
-            color: #ffffff;
-        }
-
-        /* Hover Styles for TikTok & YouTube */
-        .social-link-btn.tiktok-btn:hover {
-            border-color: var(--tiktok-pink);
-            background: rgba(255, 0, 80, 0.09);
-            box-shadow: 0 0 32px rgba(255, 0, 80, 0.4);
-        }
-
-        .social-link-btn.youtube-btn:hover {
-            border-color: var(--youtube-red);
-            background: rgba(255, 0, 0, 0.09);
-            box-shadow: 0 0 32px rgba(255, 0, 0, 0.4);
-        }
-
-        /* --------------------------------------------------------------------------
-           SECTION 6: DISCORD CUSTOM CARD IN OFFICIAL DISCORD BRAND COLORS
-           -------------------------------------------------------------------------- */
-        .discord-card-container {
-            background: rgba(88, 101, 242, 0.08);
-            border: 1.5px solid rgba(88, 101, 242, 0.4);
-            border-radius: 22px;
-            padding: 20px 22px;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            transition: all 0.35s ease;
-            position: relative;
-            text-align: left;
-        }
-
-        .discord-card-container:hover {
-            border-color: var(--discord-blurple);
-            box-shadow: 0 0 40px var(--discord-glow);
-            background: rgba(88, 101, 242, 0.15);
-        }
-
-        .discord-top-row {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .discord-identity {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .discord-icon-badge {
-            width: 44px;
-            height: 44px;
-            background: var(--discord-blurple);
-            color: #ffffff;
-            border-radius: 14px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.4rem;
-            box-shadow: 0 0 20px var(--discord-glow);
-        }
-
-        .discord-user-tag {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            color: #ffffff;
-            line-height: 1.2;
-        }
-
-        .discord-sub-label {
-            font-size: 0.85rem;
-            color: #8ab4f8;
-            font-weight: 500;
-        }
-
-        .soon-pill {
-            background: rgba(88, 101, 242, 0.3);
-            color: #ffffff;
-            border: 1px solid var(--discord-blurple);
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
-        }
-
-        .copy-tag-button {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px dashed rgba(255, 255, 255, 0.25);
-            padding: 12px;
-            border-radius: 12px;
-            color: var(--text-sub);
-            font-size: 0.9rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.25s ease;
-            text-align: center;
-        }
-
-        .copy-tag-button:hover {
-            background: var(--discord-blurple);
-            color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 0 25px var(--discord-glow);
-        }
-
-        /* --------------------------------------------------------------------------
-           SECTION 7: FOOTER STATUS AND TOAST NOTIFICATION
-           -------------------------------------------------------------------------- */
-        .system-footer {
-            margin-top: 30px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .live-status-block {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .live-dot-green {
-            width: 8px;
-            height: 8px;
-            background: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent-green);
-        }
-
-        #copiedToast {
+        /* Toast Alert */
+        #toast {
             position: fixed;
-            bottom: 40px;
+            bottom: 30px;
             left: 50%;
-            transform: translateX(-50%) translateY(140px);
+            transform: translateX(-50%) translateY(120px);
             background: #ffffff;
             color: #000000;
-            padding: 14px 28px;
-            border-radius: 40px;
+            padding: 12px 26px;
+            border-radius: 30px;
             font-weight: 800;
-            font-size: 1rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 1000;
+            font-size: 0.9rem;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 100;
             pointer-events: none;
         }
 
-        #copiedToast.active {
+        #toast.show {
             transform: translateX(-50%) translateY(0);
         }
     </style>
 </head>
-<body>
+<body class="flex items-center justify-center p-3 sm:p-6 relative font-sans antialiased min-h-screen">
 
-    <!-- Interactive Layer 1: Canvas Background Animation -->
-    <canvas id="heavyCanvas"></canvas>
-    <!-- Layer 2: Cyber Grid Overlay -->
-    <div class="cyber-grid-overlay"></div>
+    <!-- Interactive Layer 1: Background Constellation Canvas -->
+    <canvas id="bgCanvas" class="fixed inset-0 w-full h-full z-0 pointer-events-none"></canvas>
 
-    <!-- Main Content Glass Card -->
-    <div class="main-wrapper">
+    <!-- Interactive Layer 2: Touch / Click Interactive Spark & Shockwave Canvas -->
+    <canvas id="interactiveCanvas" class="fixed inset-0 w-full h-full z-1 pointer-events-none"></canvas>
+
+    <!-- Mono Grid & CRT Overlays -->
+    <div class="fixed inset-0 mono-grid opacity-40 z-2 pointer-events-none"></div>
+    <div class="fixed inset-0 crt-overlay opacity-50 z-3 pointer-events-none"></div>
+
+    <!-- Ambient Dark Monochromatic Glow Orbs -->
+    <div class="fixed top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[550px] bg-white/5 rounded-full blur-[150px] pointer-events-none z-0"></div>
+
+    <!-- Main Profile Hub Card -->
+    <main id="cyberCard" class="glass-dark-card relative z-10 w-full max-w-md rounded-3xl p-6 sm:p-8 text-center animate-float">
         
-        <!-- Lightsaber Avatar Section -->
-        <div class="avatar-container">
-            <div class="avatar-glow-ring"></div>
-            <div class="avatar-frame">
-                <!-- Direct avatar image with fallback fallback support -->
-                <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=600&auto=format&fit=crop" id="avatarImg" alt="Komornik Avatar" class="avatar-img">
+        <!-- Top Status Bar & Sound Visualizer Toggle -->
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-white/10 text-xs font-rajdhani font-semibold tracking-wider text-zinc-400">
+            <div class="flex items-center gap-2">
+                <span class="relative flex h-2.5 w-2.5">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-zinc-200 shadow-[0_0_10px_#ffffff]"></span>
+                </span>
+                <span class="text-zinc-200 font-bold tracking-widest uppercase">SYSTEM ONLINE</span>
             </div>
-            <div class="online-dot"></div>
+
+            <!-- Audio Wave / Ambient Sound Toggle -->
+            <button id="soundBtn" onclick="toggleAudio()" class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 hover:border-white/40 hover:bg-white/10 transition-all group">
+                <div id="eqVisualizer" class="flex items-center gap-1 h-3.5">
+                    <span class="eq-bar opacity-40"></span>
+                    <span class="eq-bar opacity-40"></span>
+                    <span class="eq-bar opacity-40"></span>
+                    <span class="eq-bar opacity-40"></span>
+                </div>
+                <span id="soundLabel" class="text-[11px] font-mono text-zinc-400 group-hover:text-white transition-colors">AUDIO OFF</span>
+            </button>
         </div>
 
-        <!-- Name & Title Badge -->
-        <div>
-            <h1 class="profile-name">KOMORNIK</h1>
-            <div class="cyber-badge">
-                <span>⚡ OFFICIAL HUB</span>
+        <!-- Avatar Section with Monochromatic Glowing Ring -->
+        <div class="relative w-36 h-36 mx-auto mb-6 group cursor-pointer" onclick="triggerAvatarPulse(event)">
+            <div class="absolute -inset-3 rounded-full bg-gradient-to-r from-zinc-500 via-white to-zinc-700 opacity-30 blur-md group-hover:opacity-75 transition-all duration-500 animate-pulse-glow"></div>
+            <div class="relative w-full h-full rounded-full p-1 bg-black overflow-hidden border-2 border-white/40 group-hover:border-white transition-colors shadow-[0_0_25px_rgba(255,255,255,0.25)]">
+                <img 
+                    id="avatarImg"
+                    src="https://i.ibb.co/67p5VKmJ/IMG-20261024-170353.png" 
+                    alt="KOMORNIK Avatar" 
+                    class="w-full h-full object-cover rounded-full transform group-hover:scale-110 transition-all duration-500 filter grayscale brightness-110 contrast-125"
+                    onerror="this.onerror=null; this.src='https://placehold.co/150x150/000000/ffffff?text=K';"
+                >
+            </div>
+            <div class="absolute -bottom-1 -right-1 px-2.5 py-0.5 rounded-full bg-black border border-white/40 text-[10px] font-orbitron font-extrabold text-white shadow-[0_0_12px_rgba(255,255,255,0.4)] uppercase">
+                1.0 BETA
             </div>
         </div>
 
-        <!-- User Requested Description Box -->
-        <div class="bio-card">
-            Hi i'm <strong>Komornik</strong>, im from <strong>Poland</strong>. Play <strong>CF</strong> & <strong>TWW</strong>! ⚔️🔥
+        <!-- Username Header -->
+        <div class="space-y-3 mb-6">
+            <h1 class="mono-glitch font-orbitron font-black text-3xl sm:text-4xl tracking-wider text-white uppercase" data-text="KOMORNIK">
+                KOMORNIK
+            </h1>
+            <div class="flex items-center justify-center gap-2">
+                <span class="px-3 py-1 rounded-md bg-white/5 border border-white/20 text-zinc-300 font-rajdhani font-bold text-xs tracking-widest uppercase shadow-[0_0_10px_rgba(255,255,255,0.05)]">
+                    🇵🇱 POLAND
+                </span>
+            </div>
         </div>
 
-        <!-- Social Media Buttons Stack -->
-        <div class="social-stack">
-            
-            <!-- TikTok -->
-            <a href="https://www.tiktok.com/@__komornik?_r=1&_t=ZN-9AuufJQdPE6" target="_blank" class="social-link-btn tiktok-btn">
-                <div class="btn-content-left">
-                    <div class="btn-icon-wrapper">🎬</div>
-                    <span>TikTok</span>
-                </div>
-                <div class="btn-arrow-icon">→</div>
-            </a>
+        <!-- Bio Description Box -->
+        <div class="mono-btn rounded-2xl p-4 mb-6 text-sm sm:text-base font-medium text-zinc-300 border-white/10 hover:border-white/30 transition-all">
+            <p class="font-rajdhani font-semibold text-lg text-zinc-100 tracking-wide leading-relaxed">
+                Hi i'm <span class="text-white font-bold underline decoration-white/40">Komornik</span>, im from <span class="text-white font-bold">Poland</span>
+            </p>
+            <div class="mt-2 flex items-center justify-center gap-2 text-xs font-orbitron text-zinc-400">
+                <span>Play</span>
+                <span class="px-2.5 py-0.5 rounded bg-white/10 text-white font-bold border border-white/30 shadow-[0_0_8px_rgba(255,255,255,0.1)]">CF</span>
+                <span class="px-2.5 py-0.5 rounded bg-white/10 text-white font-bold border border-white/30 shadow-[0_0_8px_rgba(255,255,255,0.1)]">TWW</span>
+                <span>🎮🔥</span>
+            </div>
+        </div>
 
-            <!-- YouTube -->
-            <a href="https://youtube.com/@komornik_2022" target="_blank" class="social-link-btn youtube-btn">
-                <div class="btn-content-left">
-                    <div class="btn-icon-wrapper">🎥</div>
-                    <span>YouTube</span>
-                </div>
-                <div class="btn-arrow-icon">→</div>
-            </a>
+        <!-- Action Links & Social Hub -->
+        <div class="space-y-3">
 
-            <!-- Official Discord Box in Blurple Theme -->
-            <div class="discord-card-container">
-                <div class="discord-top-row">
-                    <div class="discord-identity">
-                        <div class="discord-icon-badge">💬</div>
-                        <div>
-                            <div class="discord-user-tag">__komornik</div>
-                            <div class="discord-sub-label">Serwer Discord wkrótce</div>
-                        </div>
+            <!-- Roblox Link -->
+            <a href="https://www.roblox.com/users/3591758430/profile" target="_blank" rel="noopener noreferrer" 
+               class="mono-btn flex items-center justify-between p-4 rounded-2xl group hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-zinc-900 border border-white/20 flex items-center justify-center text-white shadow-[0_0_10px_rgba(255,255,255,0.1)] group-hover:scale-110 transition-transform">
+                        <!-- Roblox Icon -->
+                        <svg class="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+                            <path d="M18.926 23.998L0 18.926 5.072 0l18.926 5.072-5.072 18.926zM9.542 11.758l1.417 5.292 5.292-1.417-1.417-5.292-5.292 1.417z"/>
+                        </svg>
                     </div>
-                    <span class="soon-pill">Wkrótce</span>
+                    <div class="text-left">
+                        <div class="font-orbitron font-bold text-white group-hover:text-zinc-200 transition-colors">Roblox</div>
+                        <div class="text-xs font-rajdhani text-zinc-400">Profil Roblox</div>
+                    </div>
                 </div>
-                <button class="copy-tag-button" onclick="copyDiscordNickToClipboard()">Skopiuj nick: __komornik</button>
-            </div>
+                <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </div>
+            </a>
 
-        </div>
+            <!-- Telegram Link -->
+            <a href="https://t.me/komornik_2022" target="_blank" rel="noopener noreferrer" 
+               class="mono-btn flex items-center justify-between p-4 rounded-2xl group hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-zinc-900 border border-white/20 flex items-center justify-center text-white shadow-[0_0_10px_rgba(255,255,255,0.1)] group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 00-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-orbitron font-bold text-white group-hover:text-zinc-200 transition-colors">Telegram</div>
+                        <div class="text-xs font-rajdhani text-zinc-400">t.me/komornik_2022</div>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </div>
+            </a>
+            
+            <!-- TikTok Link -->
+            <a href="https://www.tiktok.com/@__komornik?_r=1&_t=ZN-9AuufJQdPE6" target="_blank" rel="noopener noreferrer" 
+               class="mono-btn flex items-center justify-between p-4 rounded-2xl group hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                <div class="flex items-center gap-3">
+                    <div class="w-11 h-11 rounded-xl bg-zinc-900 border border-white/20 flex items-center justify-center text-white shadow-[0_0_10px_rgba(255,255,255,0.1)] group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6 fill-current text-white" viewBox="0 0 24 24">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 3 15.68 6.34 6.34 0 0 0 9.34 22a6.34 6.34 0 0 0 6.33-6.33V9.05a8.16 8.16 0 0 0 4.67 1.47V7.07a4.85 4.85 0 0 1-.75-.38z"/>
+                        </svg>
+                    </div>
+                    <div class="text-left">
+                        <div class="font-orbitron font-bold text-white group-hover:text-zinc-200 transition-colors">TikTok</div>
+                        <div class="text-xs font-rajdhani text-zinc-400">@__komornik</div>
+                    </div>
+                </div>
+                <div class="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center group-hover:bg-white group-hover:text-black transition-all">
+                    <svg class="w-4 h-4 text-zinc-400 group-hover:text-black group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </div>
+            </a>
 
-        <!-- Footer Info Block -->
-        <div class="system-footer">
-            <div class="live-status-block">
-                <span class="live-dot-green"></span>
-                <span>SYSTEM ONLINE</span>
-            </div>
-            <span>v5.0 HEAVY PRO</span>
-        </div>
-    </div>
-
-    <!-- Toast Notification Overlay -->
-    <div id="copiedToast">Skopiowano nick: __komornik! 📋</div>
-
-    <!-- Real-time Animation Core Engine (Expanded Codebase) -->
-    <script>
-        /* ==========================================================================
-           FULL CANVAS GRAPHICS ENGINE & INTERACTION LOGIC
-           ========================================================================== */
-        const canvas = document.getElementById('heavyCanvas');
-        const ctx = canvas.getContext('2d');
-
-        let particleArray = [];
-        const maxParticles = 80;
-
-        function setCanvasSize() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        window.addEventListener('resize', setCanvasSize);
-        setCanvasSize();
-
-        class ParticleNode {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.radius = Math.random() * 2.8 + 0.5;
-                this.velocityX = (Math.random() - 0.5) * 0.8;
-                this.velocityY = (Math.random() - 0.5) * 0.8;
-                this.opacity = Math.random() * 0.75 + 0.25;
-            }
-
-            updatePosition() {
-                this.x += this.velocityX;
-                this.y += this.velocityY;
-
-                if (this.x < 0) this.x = canvas.width;
-                
+            <!-- YouTube Link -->
+            <a href="https://youtube.com/@komornik_2022" target="_blank" rel="noopener noreferrer" 
+               class="mono-btn flex it
