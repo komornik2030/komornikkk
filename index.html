@@ -6,6 +6,7 @@
   <meta name="theme-color" content="#050505">
   <meta name="description" content="KOMORNIK — oficjalny hub profili społecznościowych, gaming i kontakt.">
   <meta name="color-scheme" content="dark">
+  <meta name="robots" content="index,follow">
   <title>KOMORNIK — Ultimate Cyber Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +37,10 @@
       --ease: cubic-bezier(.2,.8,.2,1);
     }
     * { box-sizing: border-box; }
+    /* Fallback visibility rules: the main page must remain visible if an animation fails. */
+    #profileCard, .page-shell { visibility: visible; }
+    #profileCard { opacity: 1; }
+    [hidden] { display: none !important; }
     html { min-height: 100%; background: var(--bg); scroll-behavior: smooth; }
     body {
       margin: 0; min-height: 100vh; overflow-x: hidden; background: var(--bg); color: var(--white);
@@ -71,7 +76,7 @@
     .page-shell {
       visibility: visible;
       min-height: 100svh; display: grid; place-items: center; padding: 32px 16px 44px;
-      position: relative; z-index: 1;
+      position: relative; z-index: 1; visibility: visible;
     }
     .profile-card {
       width: min(100%, 460px); position: relative; overflow: hidden;
@@ -292,7 +297,4 @@ body { min-height: 100svh; overflow-x: hidden; }
   animation: cardEnter .85s cubic-bezier(.2,.8,.2,1) both;
 }
 @keyframes cardEnter { from { opacity:0; transform:translateY(24px) scale(.975); filter:blur(8px); } to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
-.social-link, .utility-btn, button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
-.social-link { position:relative; isolation:isolate; overflow:hidden; transition: transform .24s ease, border-color .24s ease, background .24s ease, box-shadow .24s ease !important; }
-.social-link::before {
-  content:""; position:absolute; z-index:-1; inset:0;
+.social-link, .utility-btn, button, a { -webkit-tap-highlight-color: transparent
