@@ -180,12 +180,12 @@ button{font:inherit;color:#eee}
     </div>
     <h1 id="mainTitle">KOMORNIK</h1>
     <div class="country" id="countryBadge"><span>🇵🇱</span> POLAND</div>
-    <div class="bio" id="bioBox">Hey, I'm <strong>Komornik</strong> — a creator from Poland.<div class="mini">GAMES <span>CF</span> <span>TWW</span></div></div>
+    <div class="bio" id="bioBox">Cześć, jestem <strong>Komornik</strong> — twórca z Polski.<div class="mini">ZAWODY SPORTOWE <span>CF</span> <span>TWW</span></div></div>
   </section>
   <nav class="links" aria-label="Social links">
     <a class="link" href="https://www.roblox.com/users/3591758430/profile" target="_blank" rel="noopener noreferrer">
       <span class="iconbox"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5.2 2 22 5.2 18.8 22 2 18.8 5.2 2Zm5.1 6.1-1.1 5.7 5.7 1.1 1.1-5.7-5.7-1.1Z"/></svg></span>
-      <span class="linktext"><div class="linktitle">Roblox</div><div class="linksub">Roblox profile</div></span>
+      <span class="linktext"><div class="linktitle">Roblox</div><div class="linksub">Profil Roblox</div></span>
       <span class="arrow">↗</span>
     </a>
     <a class="link" href="https://www.tiktok.com/@__komornik?_r=1&_t=ZN-9AvcIWicoTb" target="_blank" rel="noopener noreferrer">
@@ -205,16 +205,15 @@ button{font:inherit;color:#eee}
     </a>
   </nav>
   <div class="actions">
-    <button class="action" id="copyBtn" type="button">▣ &nbsp; COPY DISCORD</button>
-    <button class="action" id="shareBtn" type="button">↗ &nbsp; COPY PROFILE LINK</button>
+    <button class="action" id="copyBtn" type="button">▣ &nbsp; SKOPIUJ DISCORD</button>
+    <button class="action" id="shareBtn" type="button">↗ &nbsp; SKOPIUJ LINK DO PROFILU</button>
   </div>
   <footer class="footer"><span>KOMORNIK // ULTIMATE HUB</span><span class="clock" id="clock">--:--:--</span></footer>
-  <div class="footnote" id="dateLine">PERSONAL SYSTEM INTERFACE</div>
+  <div class="footnote" id="dateLine">INTERFEJS SYSTEMU OSOBISTEGO</div>
 </main>
-<div class="toast" id="toast" role="status" aria-live="polite">Copied!</div>
+<div class="toast" id="toast" role="status" aria-live="polite">Skopiowano!</div>
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
   // 1. Pływające cząsteczki w tle (kosmiczny pył)
   const dustContainer = document.getElementById('spaceDustContainer');
   if (dustContainer) {
@@ -332,4 +331,5 @@ document.addEventListener('DOMContentLoaded', () => {
     toast.textContent = message;
     toast.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.class
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2100);
+  
