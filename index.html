@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#050505">
   <meta name="description" content="KOMORNIK — oficjalny hub profili społecznościowych, gaming i kontakt.">
   <meta name="color-scheme" content="dark">
-  <title>KOMORNIK — Ultimate Cyber Hub 2.8 FIXED</title>
+  <title>KOMORNIK — Ultimate Cyber Hub</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -108,6 +108,7 @@
       transition:opacity .3s ease, filter .3s ease;
     }
     .avatar-wrap:hover .avatar-aura { opacity:.9; filter:blur(15px); }
+    /* Removed the harsh white spinning arc above the avatar. */
     .avatar-ring { display:none !important; }
     .avatar-frame { position:relative; width:100%; height:100%; padding:4px; border-radius:50%; background:#050505; border:1px solid rgba(255,255,255,.5); overflow:hidden; }
     .avatar-frame img { width:100%; height:100%; object-fit:cover; border-radius:50%; filter:grayscale(1) brightness(1.08) contrast(1.13); transition:transform .5s var(--ease), filter .5s ease; }
@@ -118,6 +119,8 @@
       box-shadow:0 0 18px rgba(255,255,255,.14); font:800 9px Orbitron,sans-serif; letter-spacing:.1em;
     }
 
+
+    /* Monochrome custom cursor: desktop only, native cursor retained on touch devices. */
     #cursorGlow, #cursorCore {
       position: fixed; top: 0; left: 0; pointer-events: none; z-index: 100;
       opacity: 0; transform: translate3d(-50%, -50%, 0); border-radius: 50%;
@@ -138,6 +141,7 @@
       #cursorGlow, #cursorCore { display: none !important; }
     }
 
+    /* Smooth, lightweight micro-animations */
     .profile-card { animation: cardRise .85s cubic-bezier(.2,.75,.25,1) both; }
     .avatar-wrap { animation: avatarFloat 5s ease-in-out infinite; }
     .social-link { transition: transform .28s cubic-bezier(.2,.8,.2,1), border-color .28s ease, background .28s ease, box-shadow .28s ease; }
@@ -234,7 +238,7 @@
     #toast.show { transform:translate(-50%,0); opacity:1; }
     .toast-dot { width:7px; height:7px; border-radius:50%; background:#111; box-shadow:0 0 0 3px #ddd; }
     #intro {
-      display: none !important;
+      display: none !important; /* Safety fallback: never leave the deployed page behind a black intro screen. */
       position:fixed; inset:0; z-index:30; display:grid; place-items:center; padding:24px;
       background:#030303; transition:opacity .55s ease,visibility .55s ease;
       animation:introFailsafe .6s ease 4s forwards;
@@ -276,39 +280,19 @@
       #starCanvas, #fxCanvas { display:none; }
     }
   
-  .visitor-panel {
-    margin-top: 13px;
-    padding: 14px;
-    border: 1px solid rgba(255,255,255,.28);
-    border-radius: 13px;
-    background: linear-gradient(130deg, rgba(255,255,255,.055), rgba(0,0,0,.88));
-    box-shadow: 0 0 22px rgba(255,255,255,.06), inset 0 0 18px rgba(255,255,255,.025);
-  }
-  .visitor-head {
-    display:flex; justify-content:space-between; align-items:center; gap:10px;
-    margin-bottom:8px; font:700 10px Orbitron,sans-serif; letter-spacing:.08em;
-  }
-  .visitor-count-wrap {
-    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
-    color:#fff; font:700 13px Rajdhani,sans-serif;
-  }
-  .visitor-count-wrap .counterapi {
-    display:inline-flex; align-items:center; min-height:24px;
-    color:#fff; font:800 18px Orbitron,sans-serif;
-    text-shadow:0 0 10px rgba(255,255,255,.42);
-  }
-  </style>
-</head>
-<body>
-  <div class="grid-layer" aria-hidden="true"></div>
-  <div class="scanlines" aria-hidden="true"></div>
-  <div class="ambient" aria-hidden="true"></div>
-
-  <main class="page-shell">
-    <article class="profile-card" id="profileCard">
-      <header class="status-bar">
-        <div class="flex items-center gap-3">
-          <span class="online-dot" aria-hidden="true"></span>
-          <span class="text-white">SYSTEM ONLINE</span>
-        </div>
-        <span class="version">HUB // 
+/* HUB 2.3 — responsive polish + interaction FX */
+html { scroll-behavior: smooth; }
+body { min-height: 100svh; overflow-x: hidden; }
+.page-shell { width: 100%; padding-left: max(14px, env(safe-area-inset-left)); padding-right: max(14px, env(safe-area-inset-right)); }
+.profile-card {
+  width: min(100%, 760px) !important;
+  padding: clamp(18px, 4.2vw, 38px) !important;
+  border-radius: clamp(20px, 3.5vw, 32px) !important;
+  transform-origin: center top;
+  animation: cardEnter .85s cubic-bezier(.2,.8,.2,1) both;
+}
+@keyframes cardEnter { from { opacity:0; transform:translateY(24px) scale(.975); filter:blur(8px); } to { opacity:1; transform:translateY(0) scale(1); filter:blur(0); } }
+.social-link, .utility-btn, button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.social-link { position:relative; isolation:isolate; overflow:hidden; transition: transform .24s ease, border-color .24s ease, background .24s ease, box-shadow .24s ease !important; }
+.social-link::before {
+  content:""; position:absolute; z-index:-1; inset:0;
