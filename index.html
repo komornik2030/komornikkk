@@ -16,15 +16,6 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#15
 #spaceCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0}
 .ambient{position:fixed;width:500px;height:500px;border-radius:50%;background:#d9d9ff;opacity:.08;filter:blur(130px);top:35%;left:50%;transform:translate(-50%,-50%);animation:ambient 10s ease-in-out infinite alternate;pointer-events:none}
 
-/* Ruchoma, przezroczysta planeta w tle za profilowym */
-.bg-planet-container{position:fixed;inset:0;display:grid;place-items:center;pointer-events:none;z-index:0;overflow:hidden}
-.bg-planet{width:min(480px, 90vw);height:min(480px, 90vw);background:url('https://i.ibb.co/KxQx2Kd4/file-0000000041c48246be6a3781b25a74b7.png') center/contain no-repeat;opacity:0.18;filter:blur(1px) contrast(1.2);animation:rotatePlanet 35s linear infinite;transform:translateY(-20px)}
-@keyframes rotatePlanet{
-  0%{transform:translateY(-20px) rotate(0deg) scale(1)}
-  50%{transform:translateY(-20px) rotate(180deg) scale(1.05)}
-  100%{transform:translateY(-20px) rotate(360deg) scale(1)}
-}
-
 .space-dust{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
 .space-particle{position:absolute;background:#fff;border-radius:50%;animation:driftSpace linear infinite;box-shadow:0 0 10px #fff,0 0 20px rgba(200,200,255,0.9)}
 @keyframes driftSpace{
@@ -34,7 +25,7 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#15
   100%{transform:translateY(-10vh) translateX(80px) scale(1.5);opacity:0}
 }
 
-.card{position:relative;z-index:1;width:min(100%,520px);padding:25px 24px 20px;border:1px solid rgba(255,255,255,.22);border-radius:25px;background:linear-gradient(145deg,rgba(19,19,22,.92),rgba(6,6,8,.94));box-shadow:0 24px 100px #000b,0 0 45px rgba(216,216,255,.15),inset 0 1px rgba(255,255,255,.06);backdrop-filter:blur(10px);overflow:hidden;animation:cardIn 1s cubic-bezier(.2,.8,.2,1) both}
+.card{position:relative;z-index:1;width:min(100%,520px);padding:25px 24px 20px;border:1px solid rgba(255,255,255,.22);border-radius:25px;background:linear-gradient(145deg,rgba(19,19,22,.94),rgba(6,6,8,.96));box-shadow:0 24px 100px #000b,0 0 45px rgba(216,216,255,.15),inset 0 1px rgba(255,255,255,.06);overflow:hidden;animation:cardIn 1s cubic-bezier(.2,.8,.2,1) both}
 
 .topbar,.footer{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:8px;letter-spacing:1.6px;color:#c8c8ce;text-transform:uppercase}
 .online{display:flex;align-items:center;gap:8px;font-weight:800}
@@ -150,7 +141,6 @@ button{font:inherit;color:#eee}
 <body>
 <canvas id="spaceCanvas"></canvas>
 <div class="ambient"></div>
-<div class="bg-planet-container"><div class="bg-planet"></div></div>
 <div class="space-dust" id="spaceDustContainer"></div>
 
 <main class="card">
@@ -206,6 +196,7 @@ button{font:inherit;color:#eee}
 <div class="toast" id="toast">Copied!</div>
 
 <script>
+// --- WEB AUDIO API SYNTHESIZER (SFX) ---
 let sfxEnabled = false;
 let audioCtx = null;
 
@@ -244,6 +235,7 @@ function playBeep(freq, duration) {
   } catch(e) {}
 }
 
+// --- ZEGAR & SESJA ---
 let secondsOnSite = 0;
 function runClock() {
   secondsOnSite++;
@@ -263,6 +255,7 @@ function runClock() {
 setInterval(runClock, 1000);
 runClock();
 
+// --- POWIADOMIENIA TOAST ---
 function showToast(msg) {
   var t = document.getElementById('toast');
   if (t) {
@@ -272,6 +265,7 @@ function showToast(msg) {
   }
 }
 
+// --- KOPIOWANIE ---
 function doCopy(text, msg) {
   if (navigator.clipboard) {
     navigator.clipboard.writeText(text).then(function(){
@@ -313,6 +307,7 @@ function copyProfile(btn) {
   doCopy('komornikkk.vercel.app', 'Profile link copied: komornikkk.vercel.app');
 }
 
+// --- ANIMACJE ELEMENTÓW ---
 function triggerAnim(el, className) {
   if (!el) return;
   el.classList.remove(className);
@@ -321,6 +316,7 @@ function triggerAnim(el, className) {
   setTimeout(function(){ el.classList.remove(className); }, 700);
 }
 
+// Cząsteczki po kliknięciu oraz płynna smuga kursora (Cursor Trail)
 window.addEventListener('pointerdown', function(e) {
   playBeep(220, 0.05);
   for(var i = 0; i < 5; i++) {
@@ -343,7 +339,7 @@ window.addEventListener('pointerdown', function(e) {
 let lastTrailTime = 0;
 window.addEventListener('pointermove', function(e) {
   const now = Date.now();
-  if (now - lastTrailTime > 40) {
+  if (now - lastTrailTime > 40) { // ograniczenie częstotliwości tworzenia smug
     lastTrailTime = now;
     const trail = document.createElement('div');
     trail.className = 'cursor-trail';
@@ -354,6 +350,7 @@ window.addEventListener('pointermove', function(e) {
   }
 });
 
+// Generowanie cząsteczek tła
 var dust = document.getElementById('spaceDustContainer');
 if (dust) {
   for (var i = 0; i < 35; i++) {
@@ -369,6 +366,7 @@ if (dust) {
   }
 }
 
+// Renderowanie Canvas
 var cvs = document.getElementById('spaceCanvas');
 if (cvs) {
   var ctx = cvs.getContext('2d');
@@ -395,4 +393,19 @@ if (cvs) {
       if (st.y < 0) { st.y = h; st.x = Math.random() * w; }
       var alpha = st.a * (0.5 + 0.5 * Math.sin(st.p));
       ctx.beginPath();
-      ctx.arc(st.x, st.y
+      ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(drawStars);
+  }
+  drawStars();
+
+  window.onresize = function() {
+    w = cvs.width = window.innerWidth;
+    h = cvs.height = window.innerHeight;
+  };
+}
+</script>
+</body>
+</html>
