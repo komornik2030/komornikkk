@@ -12,17 +12,17 @@
 html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#151519 0%,#09090b 36%,#030304 78%);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:grid;place-items:center;overflow-x:hidden;padding:34px 15px}
 
-/* Nieograniczona przestrzeń kosmiczna w tle (Canvas + Cząsteczki DOM) */
+/* Kosmiczna przestrzeń i gęste cząsteczki w tle */
 #spaceCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.ambient{position:fixed;width:500px;height:500px;border-radius:50%;background:#d9d9ff;opacity:.05;filter:blur(130px);top:35%;left:50%;transform:translate(-50%,-50%);animation:ambient 10s ease-in-out infinite alternate;pointer-events:none}
+.ambient{position:fixed;width:500px;height:500px;border-radius:50%;background:#d9d9ff;opacity:.06;filter:blur(130px);top:35%;left:50%;transform:translate(-50%,-50%);animation:ambient 10s ease-in-out infinite alternate;pointer-events:none}
 
 .space-dust{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.space-particle{position:absolute;background:#fff;border-radius:50%;animation:driftSpace linear infinite;box-shadow:0 0 10px #fff,0 0 20px rgba(200,200,255,0.8)}
+.space-particle{position:absolute;background:#fff;border-radius:50%;animation:driftSpace linear infinite;box-shadow:0 0 12px #fff,0 0 25px rgba(200,200,255,0.9)}
 @keyframes driftSpace{
-  0%{transform:translateY(110vh) translateX(0) scale(0.5);opacity:0}
+  0%{transform:translateY(110vh) translateX(0) scale(0.4);opacity:0}
   15%{opacity:1}
   85%{opacity:1}
-  100%{transform:translateY(-10vh) translateX(80px) scale(1.5);opacity:0}
+  100%{transform:translateY(-10vh) translateX(90px) scale(1.6);opacity:0}
 }
 
 .card{position:relative;z-index:1;width:min(100%,520px);padding:25px 24px 20px;border:1px solid rgba(255,255,255,.22);border-radius:25px;background:linear-gradient(145deg,rgba(19,19,22,.94),rgba(6,6,8,.96));box-shadow:0 24px 100px #000b,0 0 45px rgba(216,216,255,.15),inset 0 1px rgba(255,255,255,.06);overflow:hidden;animation:cardIn 1s cubic-bezier(.2,.8,.2,1) both;transform:perspective(1100px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transform-style:preserve-3d;transition:transform .18s ease-out,border-color .35s,box-shadow .35s}
@@ -34,23 +34,24 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#15
 .tag{border:1px solid #34343a;border-radius:5px;padding:5px 8px;color:#a2a2ab;font-size:8px;letter-spacing:1px}
 .rule{height:1px;background:linear-gradient(90deg,transparent,#33333a,transparent);margin:16px 0 21px}
 
-.profile{text-align:center}
+/* Sekcja profilu z Polską pod nickiem */
+.profile{text-align:center;display:flex;flex-direction:column;align-items:center}
 .avatar-wrap{width:116px;height:126px;margin:0 auto 12px;position:relative;display:grid;place-items:center;cursor:pointer}
 .avatar-photo{position:relative;z-index:1;width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid rgba(255,255,255,.5);box-shadow:0 0 30px rgba(255,255,255,.4),0 0 60px rgba(200,200,255,.3);animation:avatarGlow 3.5s ease-in-out infinite alternate}
 
 .beta{position:absolute;right:2px;bottom:10px;z-index:3;padding:4px 7px;border:1px solid #5a5a62;border-radius:5px;background:#08080a;font-size:8px;letter-spacing:1px;font-weight:800}
-h1{margin:5px 0 10px;font-size:clamp(27px,8vw,32px);font-weight:900;letter-spacing:3px;line-height:1.15;text-shadow:0 0 20px rgba(255,255,255,.2);animation:titleGlow 4s ease-in-out infinite alternate;cursor:pointer;user-select:none;display:inline-block}
+h1{margin:5px 0 8px;font-size:clamp(27px,8vw,32px);font-weight:900;letter-spacing:3px;line-height:1.15;text-shadow:0 0 20px rgba(255,255,255,.2);animation:titleGlow 4s ease-in-out infinite alternate;cursor:pointer;user-select:none}
 
-.country{display:inline-flex;align-items:center;gap:7px;border:1px solid #34343a;border-radius:6px;padding:5px 10px;font-size:9px;letter-spacing:1.5px;color:#ddd;transition:all .28s ease;cursor:pointer;user-select:none}
+.country{display:inline-flex;align-items:center;gap:7px;border:1px solid #34343a;border-radius:6px;padding:5px 12px;font-size:9px;letter-spacing:1.5px;color:#ddd;transition:all .28s ease;cursor:pointer;user-select:none;margin-bottom:4px}
 .country span{font-size:12px;line-height:1}
 .country:hover{border-color:rgba(255,255,255,.55);box-shadow:0 0 14px rgba(255,255,255,.12)}
 
-.bio{margin:17px 0 14px;padding:14px 12px;border:1px solid #29292e;border-radius:14px;background:linear-gradient(130deg,rgba(255,255,255,.07),rgba(255,255,255,.02));font-size:12px;line-height:1.7;color:#eee;box-shadow:inset 0 0 20px rgba(255,255,255,.03),0 0 18px rgba(216,216,255,.04);cursor:pointer;transition:all 0.3s ease}
+.bio{margin:14px 0 14px;padding:14px 12px;border:1px solid #29292e;border-radius:14px;background:linear-gradient(130deg,rgba(255,255,255,.07),rgba(255,255,255,.02));font-size:12px;line-height:1.7;color:#eee;box-shadow:inset 0 0 20px rgba(255,255,255,.03),0 0 18px rgba(216,216,255,.04);cursor:pointer;transition:all 0.3s ease;width:100%}
 .bio strong{font-weight:800}
 .mini{font-size:9px;color:#777780;letter-spacing:1.3px;margin-top:5px}
 .mini span{display:inline-block;border:1px solid #38383f;border-radius:4px;padding:2px 5px;margin:0 2px;color:#c4c4ca}
 
-.links{display:grid;gap:9px;margin-top:13px}
+.links{display:grid;gap:9px;margin-top:13px;width:100%}
 .link{display:flex;align-items:center;gap:11px;min-height:54px;padding:9px 10px;border:1px solid #27272d;border-radius:13px;background:linear-gradient(110deg,rgba(255,255,255,.04),rgba(255,255,255,.01));color:inherit;text-decoration:none;transition:transform .25s,border-color .25s,background .25s,box-shadow .25s;box-shadow:inset 0 0 0 1px rgba(255,255,255,0);animation:fadeUp .7s both}
 .link:nth-child(1){animation-delay:.2s}.link:nth-child(2){animation-delay:.3s}.link:nth-child(3){animation-delay:.4s}.link:nth-child(4){animation-delay:.5s}
 .link:hover{transform:translateY(-3px);border-color:#777780;background:rgba(255,255,255,.07);box-shadow:0 9px 25px rgba(0,0,0,.4),0 0 20px rgba(216,216,255,.1),inset 0 0 15px rgba(255,255,255,.05)}
@@ -139,7 +140,7 @@ button{font:inherit;color:#eee}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 10px #fff}50%{opacity:.45;box-shadow:0 0 3px #fff}}
 @keyframes ambient{to{opacity:.09;transform:translate(-50%,-46%) scale(1.2)}}
 @keyframes titleGlow{from{text-shadow:0 0 8px rgba(255,255,255,.1)}to{text-shadow:0 0 22px rgba(255,255,255,.3)}}
-@keyframes avatarGlow{from{box-shadow:0 0 20px rgba(255,255,255,.3),0 0 40px rgba(200,200,255,.2);filter:grayscale(.12)}from{box-shadow:0 0 20px rgba(255,255,255,.3),0 0 40px rgba(200,200,255,.2);filter:grayscale(.12)}to{box-shadow:0 0 35px rgba(255,255,255,.5),0 0 70px rgba(200,200,255,.4);filter:grayscale(0)}}
+@keyframes avatarGlow{from{box-shadow:0 0 20px rgba(255,255,255,.3),0 0 40px rgba(200,200,255,.2);filter:grayscale(.12)}to{box-shadow:0 0 35px rgba(255,255,255,.5),0 0 70px rgba(200,200,255,.4);filter:grayscale(0)}}
 @keyframes floatOrb{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(22px,-30px,0) rotate(22deg)}}
 
 @media(min-width:700px){
@@ -213,54 +214,68 @@ button{font:inherit;color:#eee}
 <div class="toast" id="toast" role="status" aria-live="polite">Copied!</div>
 
 <script>
-(() => {
-  // Gęste, pływające cząsteczki w tle (efekt kosmicznego pyłu)
+document.addEventListener('DOMContentLoaded', () => {
+  // 1. Pływające cząsteczki w tle (kosmiczny pył)
   const dustContainer = document.getElementById('spaceDustContainer');
-  const dustCount = 45;
-  for (let i = 0; i < dustCount; i++) {
-    const p = document.createElement('div');
-    p.className = 'space-particle';
-    const size = Math.random() * 4 + 1;
-    p.style.width = size + 'px';
-    p.style.height = size + 'px';
-    p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (Math.random() * 7 + 4) + 's';
-    p.style.animationDelay = (Math.random() * 5) + 's';
-    dustContainer.appendChild(p);
-  }
-
-  // Tło głębokiej przestrzeni na canvasie (wielowarstwowe gwiazdy)
-  const canvas = document.getElementById('spaceCanvas');
-  const ctx = canvas.getContext('2d');
-  let w=0,h=0,stars=[];
-  function resize(){
-    const dpr=Math.min(window.devicePixelRatio||1,2);
-    w=window.innerWidth;h=window.innerHeight;
-    canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';
-    ctx.setTransform(dpr,0,0,dpr,0,0);
-    const count=Math.min(220,Math.floor(w*h/6000));
-    stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+.3,a:Math.random()*.8+.2,s:Math.random()*0.3+0.05,p:Math.random()*6.28}));
-  }
-  function draw(){
-    ctx.clearRect(0,0,w,h);
-    for(const s of stars){
-      s.p+=.015;
-      s.y-=s.s;
-      if(s.y<0){s.y=h;s.x=Math.random()*w}
-      const alpha=s.a*(.5+.5*Math.sin(s.p));
-      ctx.beginPath();
-      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
-      ctx.fillStyle=`rgba(255,255,255,${alpha})`;
-      ctx.fill();
+  if (dustContainer) {
+    const dustCount = 50;
+    for (let i = 0; i < dustCount; i++) {
+      const p = document.createElement('div');
+      p.className = 'space-particle';
+      const size = Math.random() * 4 + 1.5;
+      p.style.width = size + 'px';
+      p.style.height = size + 'px';
+      p.style.left = Math.random() * 100 + '%';
+      p.style.animationDuration = (Math.random() * 7 + 4) + 's';
+      p.style.animationDelay = (Math.random() * 5) + 's';
+      dustContainer.appendChild(p);
     }
-    requestAnimationFrame(draw);
   }
-  resize();draw();window.addEventListener('resize',resize,{passive:true});
 
-  // Efekt kliknięcia w dowolnym miejscu (unoszące się świetlne cząsteczki zamiast kółek/krzyżyków)
+  // 2. Tło gwiazd na Canvas
+  const canvas = document.getElementById('spaceCanvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let w=0, h=0, stars=[];
+    function resize(){
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      w = window.innerWidth; h = window.innerHeight;
+      canvas.width = w * dpr; canvas.height = h * dpr;
+      canvas.style.width = w + 'px'; canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      const count = Math.min(250, Math.floor(w * h / 5500));
+      stars = Array.from({length: count}, () => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 1.6 + 0.3,
+        a: Math.random() * 0.8 + 0.2,
+        s: Math.random() * 0.35 + 0.05,
+        p: Math.random() * 6.28
+      }));
+    }
+    function draw(){
+      ctx.clearRect(0, 0, w, h);
+      for(const s of stars){
+        s.p += .015;
+        s.y -= s.s;
+        if(s.y < 0){ s.y = h; s.x = Math.random() * w; }
+        const alpha = s.a * (.5 + .5 * Math.sin(s.p));
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255,255,255,${alpha})`;
+        ctx.fill();
+      }
+      requestAnimationFrame(draw);
+    }
+    resize();
+    draw();
+    window.addEventListener('resize', resize, {passive: true});
+  }
+
+  // 3. Efekt kliknięcia w dowolnym miejscu (unoszące się cząsteczki)
   window.addEventListener('pointerdown', e => {
     const pCount = 8;
-    for(let i=0; i<pCount; i++){
+    for(let i = 0; i < pCount; i++){
       const particle = document.createElement('div');
       particle.className = 'click-particle';
       const size = Math.random() * 6 + 2;
@@ -269,8 +284,8 @@ button{font:inherit;color:#eee}
       particle.style.left = e.clientX + 'px';
       particle.style.top = e.clientY + 'px';
       
-      const dx = (Math.random() - 0.5) * 100;
-      const dy = Math.random() * 90 + 30;
+      const dx = (Math.random() - 0.5) * 110;
+      const dy = Math.random() * 100 + 30;
       particle.style.setProperty('--dx', dx + 'px');
       particle.style.setProperty('--dy', dy + 'px');
       
@@ -279,7 +294,7 @@ button{font:inherit;color:#eee}
     }
   }, {passive: true});
 
-  // Obsługa animacji po kliknięciu na konkretne elementy
+  // 4. Animacje po kliknięciu w konkretne elementy
   function triggerAnim(el, className){
     if(!el) return;
     el.classList.remove(className);
@@ -288,10 +303,18 @@ button{font:inherit;color:#eee}
     setTimeout(() => el.classList.remove(className), 700);
   }
 
-  document.getElementById('avatarWrap').addEventListener('click', () => triggerAnim(document.getElementById('avatarImg'), 'anim-avatar'));
-  document.getElementById('mainTitle').addEventListener('click', () => triggerAnim(document.getElementById('mainTitle'), 'anim-title'));
-  document.getElementById('countryBadge').addEventListener('click', () => triggerAnim(document.getElementById('countryBadge'), 'anim-country'));
-  document.getElementById('bioBox').addEventListener('click', () => triggerAnim(document.getElementById('bioBox'), 'anim-bio'));
+  const avatarWrap = document.getElementById('avatarWrap');
+  const avatarImg = document.getElementById('avatarImg');
+  if(avatarWrap && avatarImg) avatarWrap.addEventListener('click', () => triggerAnim(avatarImg, 'anim-avatar'));
+
+  const mainTitle = document.getElementById('mainTitle');
+  if(mainTitle) mainTitle.addEventListener('click', () => triggerAnim(mainTitle, 'anim-title'));
+
+  const countryBadge = document.getElementById('countryBadge');
+  if(countryBadge) countryBadge.addEventListener('click', () => triggerAnim(countryBadge, 'anim-country'));
+
+  const bioBox = document.getElementById('bioBox');
+  if(bioBox) bioBox.addEventListener('click', () => triggerAnim(bioBox, 'anim-bio'));
 
   document.querySelectorAll('.link').forEach(link => {
     link.addEventListener('click', () => triggerAnim(link, 'anim-link'));
@@ -301,22 +324,12 @@ button{font:inherit;color:#eee}
     btn.addEventListener('click', () => triggerAnim(btn, 'anim-btn'));
   });
 
-  // Toast System
-  const toast = document.getElementById('toast'); let toastTimer;
-  function notify(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2100)}
-
-  async function copyText(value, successMessage, fallbackMessage){
-    try{
-      if(navigator.clipboard && window.isSecureContext){
-        await navigator.clipboard.writeText(value);
-        notify(successMessage);
-        return;
-      }
-    }catch(e){}
-    const field=document.createElement('textarea');
-    field.value=value;
-    field.setAttribute('readonly','');
-    field.style.position='fixed';
-    field.style.opacity='0';
-    field.style.left='-9999px';
-    document.body.appendChild(
+  // 5. System powiadomień Toast oraz niezawodne kopiowanie do schowka
+  const toast = document.getElementById('toast');
+  let toastTimer;
+  function notify(message){
+    if(!toast) return;
+    toast.textContent = message;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.class
