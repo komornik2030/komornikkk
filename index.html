@@ -14,14 +14,14 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#15
 #stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
 .ambient{position:fixed;width:390px;height:390px;border-radius:50%;background:#d9d9ff;opacity:.035;filter:blur(100px);top:35%;left:50%;transform:translate(-50%,-50%);animation:ambient 8s ease-in-out infinite alternate;pointer-events:none}
 
-/* Pływające cząsteczki */
+/* Pływające cząsteczki w tle - wyraźniejsze i gęstsze */
 .floating-particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.particle{position:absolute;background:rgba(255,255,255,0.6);border-radius:50%;animation:floatParticle linear infinite;box-shadow:0 0 8px rgba(255,255,255,0.8)}
+.particle{position:absolute;background:rgba(235,235,255,0.75);border-radius:50%;animation:floatParticle linear infinite;box-shadow:0 0 12px rgba(255,255,255,0.9),0 0 4px rgba(200,200,255,0.6)}
 @keyframes floatParticle{
-  0%{transform:translateY(105vh) translateX(0);opacity:0}
-  20%{opacity:.8}
-  80%{opacity:.8}
-  100%{transform:translateY(-10vh) translateX(40px);opacity:0}
+  0%{transform:translateY(105vh) translateX(0) scale(0.6);opacity:0}
+  15%{opacity:.9}
+  85%{opacity:.9}
+  100%{transform:translateY(-10vh) translateX(50px) scale(1.3);opacity:0}
 }
 
 .card{position:relative;z-index:1;width:min(100%,520px);padding:25px 24px 20px;border:1px solid rgba(255,255,255,.18);border-radius:25px;background:linear-gradient(145deg,rgba(19,19,22,.94),rgba(6,6,8,.96));box-shadow:0 24px 100px #000b,0 0 34px rgba(216,216,255,.1),inset 0 1px rgba(255,255,255,.04);overflow:hidden;animation:cardIn 1s cubic-bezier(.2,.8,.2,1) both;transform:perspective(1100px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transform-style:preserve-3d;transition:transform .18s ease-out,border-color .35s,box-shadow .35s}
@@ -34,15 +34,17 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#15
 .rule{height:1px;background:linear-gradient(90deg,transparent,#33333a,transparent);margin:16px 0 21px}
 
 .profile{text-align:center}
-.avatar-wrap{width:116px;height:126px;margin:0 auto 12px;position:relative;display:grid;place-items:center}
-/* Usunięte kółko orbitalne, dodany efekt GLOW wokół zdjęcia */
-.avatar-photo{position:relative;z-index:1;width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid rgba(255,255,255,.4);box-shadow:0 0 25px rgba(255,255,255,.3),0 0 50px rgba(200,200,255,.2);animation:avatarGlow 3.5s ease-in-out infinite alternate}
+.avatar-wrap{width:116px;height:126px;margin:0 auto 12px;position:relative;display:grid;place-items:center;cursor:pointer}
+.avatar-photo{position:relative;z-index:1;width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid rgba(255,255,255,.4);box-shadow:0 0 25px rgba(255,255,255,.3),0 0 50px rgba(200,200,255,.2);animation:avatarGlow 3.5s ease-in-out infinite alternate;transition:transform 0.3s cubic-bezier(.175,.885,.32,1.275)}
 
 .beta{position:absolute;right:2px;bottom:10px;z-index:3;padding:4px 7px;border:1px solid #5a5a62;border-radius:5px;background:#08080a;font-size:8px;letter-spacing:1px;font-weight:800}
-h1{margin:5px 0 10px;font-size:clamp(27px,8vw,32px);font-weight:900;letter-spacing:3px;line-height:1.15;text-shadow:0 0 20px rgba(255,255,255,.2);animation:titleGlow 4s ease-in-out infinite alternate}
-.country{display:inline-flex;align-items:center;gap:7px;border:1px solid #34343a;border-radius:6px;padding:5px 10px;font-size:8px;letter-spacing:1.5px;color:#ddd;transition:all .28s ease}
+h1{margin:5px 0 10px;font-size:clamp(27px,8vw,32px);font-weight:900;letter-spacing:3px;line-height:1.15;text-shadow:0 0 20px rgba(255,255,255,.2);animation:titleGlow 4s ease-in-out infinite alternate;cursor:pointer;user-select:none;display:inline-block}
+
+.country{display:inline-flex;align-items:center;gap:7px;border:1px solid #34343a;border-radius:6px;padding:5px 10px;font-size:9px;letter-spacing:1.5px;color:#ddd;transition:all .28s ease;cursor:pointer;user-select:none}
+.country span{font-size:12px;line-height:1}
 .country:hover{border-color:rgba(255,255,255,.55);box-shadow:0 0 14px rgba(255,255,255,.12)}
-.bio{margin:17px 0 14px;padding:14px 12px;border:1px solid #29292e;border-radius:14px;background:linear-gradient(130deg,rgba(255,255,255,.07),rgba(255,255,255,.02));font-size:12px;line-height:1.7;color:#eee;box-shadow:inset 0 0 20px rgba(255,255,255,.03),0 0 18px rgba(216,216,255,.04)}
+
+.bio{margin:17px 0 14px;padding:14px 12px;border:1px solid #29292e;border-radius:14px;background:linear-gradient(130deg,rgba(255,255,255,.07),rgba(255,255,255,.02));font-size:12px;line-height:1.7;color:#eee;box-shadow:inset 0 0 20px rgba(255,255,255,.03),0 0 18px rgba(216,216,255,.04);cursor:pointer;transition:all 0.3s ease}
 .bio strong{font-weight:800}
 .mini{font-size:9px;color:#777780;letter-spacing:1.3px;margin-top:5px}
 .mini span{display:inline-block;border:1px solid #38383f;border-radius:4px;padding:2px 5px;margin:0 2px;color:#c4c4ca}
@@ -63,7 +65,7 @@ h1{margin:5px 0 10px;font-size:clamp(27px,8vw,32px);font-weight:900;letter-spaci
 
 .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:13px}
 button{font:inherit;color:#eee}
-.action{min-height:39px;padding:8px 7px;border:1px solid #303037;border-radius:9px;background:linear-gradient(110deg,rgba(255,255,255,.06),rgba(255,255,255,.02));font-size:8px;letter-spacing:.8px;cursor:pointer;transition:background .2s,border-color .2s,transform .2s,box-shadow .2s}
+.action{min-height:39px;padding:8px 7px;border:1px solid #303037;border-radius:9px;background:linear-gradient(110deg,rgba(255,255,255,.06),rgba(255,255,255,.02));font-size:8px;letter-spacing:.8px;cursor:pointer;transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;position:relative;overflow:hidden}
 .action:hover{background:rgba(255,255,255,.12);border-color:#777780;transform:translateY(-2px);box-shadow:0 0 17px rgba(216,216,255,.12)}
 .action:active{transform:scale(.98)}
 
@@ -80,9 +82,57 @@ button{font:inherit;color:#eee}
 .orb-one{top:12%;left:calc(50% - 430px);animation:floatOrb 17s ease-in-out infinite}
 .orb-two{bottom:9%;right:calc(50% - 440px);width:230px;height:230px;animation:floatOrb 22s ease-in-out -7s infinite reverse}
 
-.tap-spark{position:fixed;z-index:10;width:7px;height:7px;border:1px solid #fff;border-radius:50%;pointer-events:none;transform:translate(-50%,-50%);animation:sparkOut .55s ease-out forwards;box-shadow:0 0 12px rgba(255,255,255,.8)}
-.tap-spark:before,.tap-spark:after{content:"";position:absolute;background:#fff;opacity:.75;left:50%;top:50%;transform:translate(-50%,-50%)}
-.tap-spark:before{width:20px;height:1px}.tap-spark:after{width:1px;height:20px}
+/* Cząsteczki powstające po kliknięciu myszką */
+.click-particle{position:fixed;z-index:99;pointer-events:none;background:radial-gradient(circle,#ffffff 0%,rgba(200,200,255,0.8) 60%,transparent 100%);border-radius:50%;box-shadow:0 0 10px rgba(255,255,255,0.9);animation:clickParticleUp 0.75s ease-out forwards}
+@keyframes clickParticleUp{
+  0%{transform:translate(-50%,-50%) scale(1);opacity:1}
+  100%{transform:translate(calc(-50% + var(--dx)), calc(-50% - var(--dy))) scale(0.2);opacity:0}
+}
+
+/* KŁASA I ANIMACJE DLA INTERAKCJI DEDYKOWANYCH */
+.anim-avatar{animation:avatarClick 0.65s cubic-bezier(.36,.07,.19,.97) !important}
+@keyframes avatarClick{
+  0%{transform:rotateY(0deg) scale(1)}
+  50%{transform:rotateY(180deg) scale(1.18);box-shadow:0 0 45px rgba(255,255,255,0.8),0 0 90px rgba(200,200,255,0.6)}
+  100%{transform:rotateY(360deg) scale(1)}
+}
+
+.anim-title{animation:titleClick 0.5s ease-in-out !important}
+@keyframes titleClick{
+  0%{transform:scale(1);filter:brightness(1)}
+  25%{transform:scale(1.12) skewX(-6deg);filter:brightness(1.8);text-shadow:0 0 30px #fff}
+  50%{transform:scale(0.95) skewX(6deg)}
+  75%{transform:scale(1.05)}
+  100%{transform:scale(1);filter:brightness(1)}
+}
+
+.anim-country{animation:countryBounce 0.5s cubic-bezier(.175,.885,.32,1.275) !important}
+@keyframes countryBounce{
+  0%{transform:translateY(0) scale(1)}
+  40%{transform:translateY(-8px) scale(1.15);border-color:#fff;box-shadow:0 0 20px rgba(255,255,255,0.4)}
+  100%{transform:translateY(0) scale(1)}
+}
+
+.anim-bio{animation:bioGlow 0.6s ease-out !important}
+@keyframes bioGlow{
+  0%{border-color:#29292e}
+  50%{border-color:rgba(255,255,255,0.6);box-shadow:inset 0 0 25px rgba(255,255,255,0.15),0 0 30px rgba(216,216,255,0.25);transform:scale(1.015)}
+  100%{border-color:#29292e}
+}
+
+.anim-link{animation:linkPulse 0.45s ease-in-out !important}
+@keyframes linkPulse{
+  0%{transform:scale(1)}
+  40%{transform:scale(0.97);border-color:#fff;background:rgba(255,255,255,0.12)}
+  70%{transform:scale(1.02)}
+  100%{transform:scale(1)}
+}
+
+.anim-btn{animation:btnShock 0.4s ease-out !important}
+@keyframes btnShock{
+  0%{box-shadow:0 0 0 0 rgba(255,255,255,0.6)}
+  100%{box-shadow:0 0 0 15px rgba(255,255,255,0)}
+}
 
 @keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.98);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
@@ -91,7 +141,6 @@ button{font:inherit;color:#eee}
 @keyframes titleGlow{from{text-shadow:0 0 8px rgba(255,255,255,.1)}to{text-shadow:0 0 22px rgba(255,255,255,.3)}}
 @keyframes avatarGlow{from{box-shadow:0 0 15px rgba(255,255,255,.2),0 0 30px rgba(200,200,255,.1);filter:grayscale(.12)}to{box-shadow:0 0 30px rgba(255,255,255,.4),0 0 60px rgba(200,200,255,.3);filter:grayscale(0)}}
 @keyframes floatOrb{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(22px,-30px,0) rotate(22deg)}}
-@keyframes sparkOut{0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}100%{opacity:0;transform:translate(-50%,-50%) scale(4)}}
 
 @media(min-width:700px){
   body{padding:52px 24px}
@@ -124,13 +173,13 @@ button{font:inherit;color:#eee}
   <header class="topbar"><div class="online"><span class="dot"></span>SYSTEM ONLINE</div><span class="tag">HUB // 2.0</span></header>
   <div class="rule"></div>
   <section class="profile" aria-label="KOMORNIK profile">
-    <div class="avatar-wrap">
-      <img class="avatar-photo" src="https://i.ibb.co/67p5VKmJ/IMG-20261024-170353.png" alt="KOMORNIK profile picture" loading="eager">
+    <div class="avatar-wrap" id="avatarWrap">
+      <img class="avatar-photo" id="avatarImg" src="https://i.ibb.co/67p5VKmJ/IMG-20261024-170353.png" alt="KOMORNIK profile picture" loading="eager">
       <span class="beta">BETA</span>
     </div>
-    <h1>KOMORNIK</h1>
-    <div class="country"><span>PL</span> POLAND</div>
-    <div class="bio">Hey, I'm <strong>Komornik</strong> — a creator from Poland.<div class="mini">GAMES <span>CF</span> <span>TWW</span></div></div>
+    <h1 id="mainTitle">KOMORNIK</h1>
+    <div class="country" id="countryBadge"><span>🇵🇱</span> POLAND</div>
+    <div class="bio" id="bioBox">Hey, I'm <strong>Komornik</strong> — a creator from Poland.<div class="mini">GAMES <span>CF</span> <span>TWW</span></div></div>
   </section>
   <nav class="links" aria-label="Social links">
     <a class="link" href="https://www.roblox.com/users/3591758430/profile" target="_blank" rel="noopener noreferrer">
@@ -148,7 +197,6 @@ button{font:inherit;color:#eee}
       <span class="linktext"><div class="linktitle">YouTube</div><div class="linksub">@komornik_2022</div></span>
       <span class="arrow">↗</span>
     </a>
-    <!-- Discord link - nic się nie włącza (zablokowana nawigacja) -->
     <a class="link" href="javascript:void(0);" onclick="event.preventDefault();" aria-label="Discord — server coming soon">
       <span class="iconbox"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.7 5.2A19 19 0 0 0 15 3.8l-.6 1.3a17.5 17.5 0 0 0-4.8 0L9 3.8a19 19 0 0 0-4.7 1.4C1.3 9.6.5 13.9.9 18.1a19 19 0 0 0 5.8 2.9l1.3-2.1-2-1 0-.1c.4.2.8.4 1.2.5a13.5 13.5 0 0 0 9.6 0c.4-.1.8-.3 1.2-.5v.1l-2 1 1.3 2.1a19 19 0 0 0 5.8-2.9c.5-4.9-.8-9.2-3.4-12.9ZM8.8 14.9c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Zm6.4 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.8.9 1.8 2-.8 2-1.8 2Z"/></svg></span>
       <span class="linktext"><div class="linktitle">Discord</div><div class="linksub">__komornik · SERVER COMING SOON</div></span>
@@ -166,22 +214,22 @@ button{font:inherit;color:#eee}
 
 <script>
 (() => {
-  // Generowanie pływających cząsteczek
+  // Generowanie gęstych pływających cząsteczek w tle
   const particlesContainer = document.getElementById('particlesContainer');
-  const particleCount = 18;
+  const particleCount = 28;
   for (let i = 0; i < particleCount; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
-    const size = Math.random() * 3 + 1.5;
+    const size = Math.random() * 3.5 + 1.5;
     p.style.width = size + 'px';
     p.style.height = size + 'px';
     p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (Math.random() * 8 + 6) + 's';
-    p.style.animationDelay = (Math.random() * 5) + 's';
+    p.style.animationDuration = (Math.random() * 9 + 5) + 's';
+    p.style.animationDelay = (Math.random() * 6) + 's';
     particlesContainer.appendChild(p);
   }
 
-  // Tło gwiazd
+  // Tło gwiezdne
   const canvas = document.getElementById('stars');
   const ctx = canvas.getContext('2d');
   let w=0,h=0,stars=[];
@@ -190,7 +238,7 @@ button{font:inherit;color:#eee}
     w=window.innerWidth;h=window.innerHeight;
     canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    const count=Math.min(120,Math.floor(w*h/9500));
+    const count=Math.min(130,Math.floor(w*h/9000));
     stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+.2,a:Math.random()*.6+.12,s:Math.random()*.22+.04,p:Math.random()*6.28}));
   }
   function draw(){
@@ -202,87 +250,68 @@ button{font:inherit;color:#eee}
   }
   resize();draw();window.addEventListener('resize',resize,{passive:true});
 
-  // Powiadomienia Toast
-  const toast=document.getElementById('toast');let toastTimer;
+  // EFEKT KLIKNIĘCIA BĄDŹ DOTKNIĘCIA (Unoszące się cząsteczki świetlne)
+  window.addEventListener('pointerdown', e => {
+    const pCount = 6; // ilość cząsteczek przy pojedynczym kliknięciu
+    for(let i=0; i<pCount; i++){
+      const particle = document.createElement('div');
+      particle.className = 'click-particle';
+      const size = Math.random() * 5 + 3;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = e.clientX + 'px';
+      particle.style.top = e.clientY + 'px';
+      
+      const dx = (Math.random() - 0.5) * 60;
+      const dy = Math.random() * 50 + 20;
+      particle.style.setProperty('--dx', dx + 'px');
+      particle.style.setProperty('--dy', dy + 'px');
+      
+      document.body.appendChild(particle);
+      setTimeout(() => particle.remove(), 750);
+    }
+  }, {passive: true});
+
+  // ANIMACJE DEDYKOWANE DLA POSZCZEGÓLNYCH ELEMENTÓW:
+  function triggerAnim(el, className){
+    el.classList.remove(className);
+    void el.offsetWidth; // wymuszenie reflow
+    el.classList.add(className);
+    setTimeout(() => el.classList.remove(className), 700);
+  }
+
+  // 1. Profilowe (Obtót 3D + Flash Glow)
+  const avatarWrap = document.getElementById('avatarWrap');
+  const avatarImg = document.getElementById('avatarImg');
+  avatarWrap.addEventListener('click', () => triggerAnim(avatarImg, 'anim-avatar'));
+
+  // 2. Tytuł KOMORNIK (Glitch / Wave)
+  const mainTitle = document.getElementById('mainTitle');
+  mainTitle.addEventListener('click', () => triggerAnim(mainTitle, 'anim-title'));
+
+  // 3. Flaga / Kraj (Bounce)
+  const countryBadge = document.getElementById('countryBadge');
+  countryBadge.addEventListener('click', () => triggerAnim(countryBadge, 'anim-country'));
+
+  // 4. Bio (Rozświetlenie krawędzi)
+  const bioBox = document.getElementById('bioBox');
+  bioBox.addEventListener('click', () => triggerAnim(bioBox, 'anim-bio'));
+
+  // 5. Linki Social Media
+  document.querySelectorAll('.link').forEach(link => {
+    link.addEventListener('click', () => triggerAnim(link, 'anim-link'));
+  });
+
+  // 6. Przyciski akcji
+  document.querySelectorAll('.action').forEach(btn => {
+    btn.addEventListener('click', () => triggerAnim(btn, 'anim-btn'));
+  });
+
+  // Toast System
+  const toast = document.getElementById('toast'); let toastTimer;
   function notify(message){toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2100)}
 
   async function copyText(value, successMessage, fallbackMessage){
     try{
       if(navigator.clipboard && window.isSecureContext){
-        await navigator.clipboard.writeText(value);
-        notify(successMessage);
-        return;
-      }
-    }catch(e){}
-    const field=document.createElement('textarea');
-    field.value=value;
-    field.setAttribute('readonly','');
-    field.style.position='fixed';
-    field.style.opacity='0';
-    field.style.left='-9999px';
-    document.body.appendChild(field);
-    field.focus();
-    field.select();
-    field.setSelectionRange(0, field.value.length);
-    let copied=false;
-    try{copied=document.execCommand('copy')}catch(e){}
-    field.remove();
-    notify(copied ? successMessage : fallbackMessage);
-  }
-
-  // Przycisk kopiowania Discord / Username (__komornik)
-  document.getElementById('copyBtn').addEventListener('click',()=>{
-    copyText('__komornik','Discord copied: __komornik','Discord: __komornik');
-  });
-
-  // Przycisk kopiowania linku profilu (https://komornikkk.vercel.app/)
-  document.getElementById('shareBtn').addEventListener('click',()=>{
-    copyText('https://komornikkk.vercel.app/','Profile link copied!','Profile link: https://komornikkk.vercel.app/');
-  });
-
-  // Zegar live
-  const clockEl = document.getElementById('clock');
-  function updateClock(){
-    const now = new Date();
-    clockEl.textContent = now.toTimeString().split(' ')[0];
-  }
-  setInterval(updateClock, 1000);
-  updateClock();
-
-  // Efekt iskierek po kliknięciu
-  const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  function makeSpark(x,y){
-    if(reducedMotion) return;
-    const spark=document.createElement('i');
-    spark.className='tap-spark';
-    spark.style.left=x+'px';
-    spark.style.top=y+'px';
-    document.body.appendChild(spark);
-    setTimeout(()=>spark.remove(),550);
-  }
-  window.addEventListener('pointerdown',e=>makeSpark(e.clientX,e.clientY),{passive:true});
-
-  // Efekt tilt karty 3D
-  const card = document.querySelector('.card');
-  if(!reducedMotion){
-    window.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      if(x >= 0 && x <= rect.width && y >= 0 && y <= rect.height){
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        const rotateX = -((y - centerY) / centerY) * 6;
-        const rotateY = ((x - centerX) / centerX) * 6;
-        card.style.setProperty('--tilt-x', rotateX + 'deg');
-        card.style.setProperty('--tilt-y', rotateY + 'deg');
-      } else {
-        card.style.setProperty('--tilt-x', '0deg');
-        card.style.setProperty('--tilt-y', '0deg');
-      }
-    });
-  }
-})();
-</script>
-</body>
-</html>
+      
