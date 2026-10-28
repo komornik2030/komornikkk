@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#050505">
   <meta name="description" content="KOMORNIK — oficjalny hub profili społecznościowych, gaming i kontakt.">
   <meta name="color-scheme" content="dark">
-  <title>KOMORNIK — Ultimate Cyber Hub 2.7</title>
+  <title>KOMORNIK — Ultimate Cyber Hub 2.8 FIXED</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -69,6 +69,7 @@
       background: rgba(255,255,255,.065); filter: blur(125px);
     }
     .page-shell {
+      visibility: visible;
       min-height: 100svh; display: grid; place-items: center; padding: 32px 16px 44px;
       position: relative; z-index: 1;
     }
@@ -237,6 +238,7 @@
     #toast.show { transform:translate(-50%,0); opacity:1; }
     .toast-dot { width:7px; height:7px; border-radius:50%; background:#111; box-shadow:0 0 0 3px #ddd; }
     #intro {
+      display: none !important; /* Safety fallback: never leave the deployed page behind a black intro screen. */
       position:fixed; inset:0; z-index:30; display:grid; place-items:center; padding:24px;
       background:#030303; transition:opacity .55s ease,visibility .55s ease;
       animation:introFailsafe .6s ease 4s forwards;
@@ -293,6 +295,4 @@ body { min-height: 100svh; overflow-x: hidden; }
 .social-link, .utility-btn, button, a { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
 .social-link { position:relative; isolation:isolate; overflow:hidden; transition: transform .24s ease, border-color .24s ease, background .24s ease, box-shadow .24s ease !important; }
 .social-link::before {
-  content:""; position:absolute; z-index:-1; inset:0; opacity:0;
-  background:linear-gradient(110deg, transparent 15%,rgba(255,255,255,.12) 48%,transparent 78%);
-  transform:translateX(-120%
+  content:""; position:absolute; z-index:-1
