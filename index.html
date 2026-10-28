@@ -11,21 +11,22 @@
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#151519 0%,#09090b 36%,#030304 78%);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:grid;place-items:center;overflow-x:hidden;padding:34px 15px}
-#stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
-.ambient{position:fixed;width:390px;height:390px;border-radius:50%;background:#d9d9ff;opacity:.035;filter:blur(100px);top:35%;left:50%;transform:translate(-50%,-50%);animation:ambient 8s ease-in-out infinite alternate;pointer-events:none}
 
-/* Pływające cząsteczki w tle - wyraźniejsze i gęstsze */
-.floating-particles{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
-.particle{position:absolute;background:rgba(235,235,255,0.75);border-radius:50%;animation:floatParticle linear infinite;box-shadow:0 0 12px rgba(255,255,255,0.9),0 0 4px rgba(200,200,255,0.6)}
-@keyframes floatParticle{
-  0%{transform:translateY(105vh) translateX(0) scale(0.6);opacity:0}
-  15%{opacity:.9}
-  85%{opacity:.9}
-  100%{transform:translateY(-10vh) translateX(50px) scale(1.3);opacity:0}
+/* Nieograniczona przestrzeń kosmiczna w tle (Canvas + Cząsteczki DOM) */
+#spaceCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.ambient{position:fixed;width:500px;height:500px;border-radius:50%;background:#d9d9ff;opacity:.05;filter:blur(130px);top:35%;left:50%;transform:translate(-50%,-50%);animation:ambient 10s ease-in-out infinite alternate;pointer-events:none}
+
+.space-dust{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.space-particle{position:absolute;background:#fff;border-radius:50%;animation:driftSpace linear infinite;box-shadow:0 0 10px #fff,0 0 20px rgba(200,200,255,0.8)}
+@keyframes driftSpace{
+  0%{transform:translateY(110vh) translateX(0) scale(0.5);opacity:0}
+  15%{opacity:1}
+  85%{opacity:1}
+  100%{transform:translateY(-10vh) translateX(80px) scale(1.5);opacity:0}
 }
 
-.card{position:relative;z-index:1;width:min(100%,520px);padding:25px 24px 20px;border:1px solid rgba(255,255,255,.18);border-radius:25px;background:linear-gradient(145deg,rgba(19,19,22,.94),rgba(6,6,8,.96));box-shadow:0 24px 100px #000b,0 0 34px rgba(216,216,255,.1),inset 0 1px rgba(255,255,255,.04);overflow:hidden;animation:cardIn 1s cubic-bezier(.2,.8,.2,1) both;transform:perspective(1100px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transform-style:preserve-3d;transition:transform .18s ease-out,border-color .35s,box-shadow .35s}
-.card:hover{border-color:rgba(255,255,255,.35);box-shadow:0 24px 100px #000c,0 0 45px rgba(216,216,255,.18),inset 0 1px rgba(255,255,255,.1)}
+.card{position:relative;z-index:1;width:min(100%,520px);padding:25px 24px 20px;border:1px solid rgba(255,255,255,.22);border-radius:25px;background:linear-gradient(145deg,rgba(19,19,22,.94),rgba(6,6,8,.96));box-shadow:0 24px 100px #000b,0 0 45px rgba(216,216,255,.15),inset 0 1px rgba(255,255,255,.06);overflow:hidden;animation:cardIn 1s cubic-bezier(.2,.8,.2,1) both;transform:perspective(1100px) rotateX(var(--tilt-x,0deg)) rotateY(var(--tilt-y,0deg));transform-style:preserve-3d;transition:transform .18s ease-out,border-color .35s,box-shadow .35s}
+.card:hover{border-color:rgba(255,255,255,.45);box-shadow:0 24px 100px #000c,0 0 60px rgba(216,216,255,.25),inset 0 1px rgba(255,255,255,.15)}
 
 .topbar,.footer{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:8px;letter-spacing:1.6px;color:#c8c8ce;text-transform:uppercase}
 .online{display:flex;align-items:center;gap:8px;font-weight:800}
@@ -35,7 +36,7 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#15
 
 .profile{text-align:center}
 .avatar-wrap{width:116px;height:126px;margin:0 auto 12px;position:relative;display:grid;place-items:center;cursor:pointer}
-.avatar-photo{position:relative;z-index:1;width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid rgba(255,255,255,.4);box-shadow:0 0 25px rgba(255,255,255,.3),0 0 50px rgba(200,200,255,.2);animation:avatarGlow 3.5s ease-in-out infinite alternate;transition:transform 0.3s cubic-bezier(.175,.885,.32,1.275)}
+.avatar-photo{position:relative;z-index:1;width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid rgba(255,255,255,.5);box-shadow:0 0 30px rgba(255,255,255,.4),0 0 60px rgba(200,200,255,.3);animation:avatarGlow 3.5s ease-in-out infinite alternate}
 
 .beta{position:absolute;right:2px;bottom:10px;z-index:3;padding:4px 7px;border:1px solid #5a5a62;border-radius:5px;background:#08080a;font-size:8px;letter-spacing:1px;font-weight:800}
 h1{margin:5px 0 10px;font-size:clamp(27px,8vw,32px);font-weight:900;letter-spacing:3px;line-height:1.15;text-shadow:0 0 20px rgba(255,255,255,.2);animation:titleGlow 4s ease-in-out infinite alternate;cursor:pointer;user-select:none;display:inline-block}
@@ -82,64 +83,63 @@ button{font:inherit;color:#eee}
 .orb-one{top:12%;left:calc(50% - 430px);animation:floatOrb 17s ease-in-out infinite}
 .orb-two{bottom:9%;right:calc(50% - 440px);width:230px;height:230px;animation:floatOrb 22s ease-in-out -7s infinite reverse}
 
-/* Cząsteczki powstające po kliknięciu myszką */
-.click-particle{position:fixed;z-index:99;pointer-events:none;background:radial-gradient(circle,#ffffff 0%,rgba(200,200,255,0.8) 60%,transparent 100%);border-radius:50%;box-shadow:0 0 10px rgba(255,255,255,0.9);animation:clickParticleUp 0.75s ease-out forwards}
+/* Cząsteczki tryskające po kliknięciu w dowolnym miejscu */
+.click-particle{position:fixed;z-index:99;pointer-events:none;background:#fff;border-radius:50%;box-shadow:0 0 12px #fff,0 0 25px rgba(200,200,255,0.9);animation:clickParticleUp 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards}
 @keyframes clickParticleUp{
-  0%{transform:translate(-50%,-50%) scale(1);opacity:1}
-  100%{transform:translate(calc(-50% + var(--dx)), calc(-50% - var(--dy))) scale(0.2);opacity:0}
+  0%{transform:translate(-50%,-50%) scale(1.2);opacity:1}
+  100%{transform:translate(calc(-50% + var(--dx)), calc(-50% - var(--dy))) scale(0.1);opacity:0}
 }
 
-/* KŁASA I ANIMACJE DLA INTERAKCJI DEDYKOWANYCH */
-.anim-avatar{animation:avatarClick 0.65s cubic-bezier(.36,.07,.19,.97) !important}
+/* ANIMACJE KLIKNIĘĆ DLA ELEMENTÓW */
+.anim-avatar{animation:avatarClick 0.7s cubic-bezier(.36,.07,.19,.97) !important}
 @keyframes avatarClick{
-  0%{transform:rotateY(0deg) scale(1)}
-  50%{transform:rotateY(180deg) scale(1.18);box-shadow:0 0 45px rgba(255,255,255,0.8),0 0 90px rgba(200,200,255,0.6)}
-  100%{transform:rotateY(360deg) scale(1)}
+  0%{transform:scale(1)}
+  50%{transform:rotate(360deg) scale(1.2);box-shadow:0 0 50px rgba(255,255,255,0.9),0 0 100px rgba(200,200,255,0.7)}
+  100%{transform:scale(1)}
 }
 
 .anim-title{animation:titleClick 0.5s ease-in-out !important}
 @keyframes titleClick{
-  0%{transform:scale(1);filter:brightness(1)}
-  25%{transform:scale(1.12) skewX(-6deg);filter:brightness(1.8);text-shadow:0 0 30px #fff}
-  50%{transform:scale(0.95) skewX(6deg)}
-  75%{transform:scale(1.05)}
-  100%{transform:scale(1);filter:brightness(1)}
+  0%{transform:scale(1)}
+  30%{transform:scale(1.15) skewX(-8deg);text-shadow:0 0 35px #fff}
+  60%{transform:scale(0.95) skewX(8deg)}
+  100%{transform:scale(1)}
 }
 
 .anim-country{animation:countryBounce 0.5s cubic-bezier(.175,.885,.32,1.275) !important}
 @keyframes countryBounce{
   0%{transform:translateY(0) scale(1)}
-  40%{transform:translateY(-8px) scale(1.15);border-color:#fff;box-shadow:0 0 20px rgba(255,255,255,0.4)}
+  40%{transform:translateY(-10px) scale(1.2);border-color:#fff;box-shadow:0 0 25px rgba(255,255,255,0.5)}
   100%{transform:translateY(0) scale(1)}
 }
 
 .anim-bio{animation:bioGlow 0.6s ease-out !important}
 @keyframes bioGlow{
   0%{border-color:#29292e}
-  50%{border-color:rgba(255,255,255,0.6);box-shadow:inset 0 0 25px rgba(255,255,255,0.15),0 0 30px rgba(216,216,255,0.25);transform:scale(1.015)}
+  50%{border-color:rgba(255,255,255,0.8);box-shadow:inset 0 0 30px rgba(255,255,255,0.2),0 0 35px rgba(216,216,255,0.35);transform:scale(1.02)}
   100%{border-color:#29292e}
 }
 
 .anim-link{animation:linkPulse 0.45s ease-in-out !important}
 @keyframes linkPulse{
   0%{transform:scale(1)}
-  40%{transform:scale(0.97);border-color:#fff;background:rgba(255,255,255,0.12)}
-  70%{transform:scale(1.02)}
+  40%{transform:scale(0.96);border-color:#fff;background:rgba(255,255,255,0.15)}
+  70%{transform:scale(1.03)}
   100%{transform:scale(1)}
 }
 
 .anim-btn{animation:btnShock 0.4s ease-out !important}
 @keyframes btnShock{
-  0%{box-shadow:0 0 0 0 rgba(255,255,255,0.6)}
-  100%{box-shadow:0 0 0 15px rgba(255,255,255,0)}
+  0%{box-shadow:0 0 0 0 rgba(255,255,255,0.8)}
+  100%{box-shadow:0 0 0 20px rgba(255,255,255,0)}
 }
 
 @keyframes cardIn{from{opacity:0;transform:translateY(24px) scale(.98);filter:blur(5px)}to{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 10px #fff}50%{opacity:.45;box-shadow:0 0 3px #fff}}
-@keyframes ambient{to{opacity:.075;transform:translate(-50%,-46%) scale(1.15)}}
+@keyframes ambient{to{opacity:.09;transform:translate(-50%,-46%) scale(1.2)}}
 @keyframes titleGlow{from{text-shadow:0 0 8px rgba(255,255,255,.1)}to{text-shadow:0 0 22px rgba(255,255,255,.3)}}
-@keyframes avatarGlow{from{box-shadow:0 0 15px rgba(255,255,255,.2),0 0 30px rgba(200,200,255,.1);filter:grayscale(.12)}to{box-shadow:0 0 30px rgba(255,255,255,.4),0 0 60px rgba(200,200,255,.3);filter:grayscale(0)}}
+@keyframes avatarGlow{from{box-shadow:0 0 20px rgba(255,255,255,.3),0 0 40px rgba(200,200,255,.2);filter:grayscale(.12)}from{box-shadow:0 0 20px rgba(255,255,255,.3),0 0 40px rgba(200,200,255,.2);filter:grayscale(.12)}to{box-shadow:0 0 35px rgba(255,255,255,.5),0 0 70px rgba(200,200,255,.4);filter:grayscale(0)}}
 @keyframes floatOrb{0%,100%{transform:translate3d(0,0,0) rotate(0deg)}50%{transform:translate3d(22px,-30px,0) rotate(22deg)}}
 
 @media(min-width:700px){
@@ -157,17 +157,17 @@ button{font:inherit;color:#eee}
   .card{width:100%;padding:21px 16px 17px}
 }
 @media(prefers-reduced-motion:reduce){
-  .orb,.floating-particles{display:none!important}
+  .orb,.space-dust{display:none!important}
   .card{transform:none!important}
 }
 </style>
 </head>
 <body>
-<canvas id="stars" aria-hidden="true"></canvas>
+<canvas id="spaceCanvas" aria-hidden="true"></canvas>
 <div class="ambient"></div>
 <div class="orb orb-one" aria-hidden="true"></div>
 <div class="orb orb-two" aria-hidden="true"></div>
-<div class="floating-particles" id="particlesContainer" aria-hidden="true"></div>
+<div class="space-dust" id="spaceDustContainer" aria-hidden="true"></div>
 
 <main class="card">
   <header class="topbar"><div class="online"><span class="dot"></span>SYSTEM ONLINE</div><span class="tag">HUB // 2.0</span></header>
@@ -214,23 +214,23 @@ button{font:inherit;color:#eee}
 
 <script>
 (() => {
-  // Generowanie gęstych pływających cząsteczek w tle
-  const particlesContainer = document.getElementById('particlesContainer');
-  const particleCount = 28;
-  for (let i = 0; i < particleCount; i++) {
+  // Gęste, pływające cząsteczki w tle (efekt kosmicznego pyłu)
+  const dustContainer = document.getElementById('spaceDustContainer');
+  const dustCount = 45;
+  for (let i = 0; i < dustCount; i++) {
     const p = document.createElement('div');
-    p.className = 'particle';
-    const size = Math.random() * 3.5 + 1.5;
+    p.className = 'space-particle';
+    const size = Math.random() * 4 + 1;
     p.style.width = size + 'px';
     p.style.height = size + 'px';
     p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (Math.random() * 9 + 5) + 's';
-    p.style.animationDelay = (Math.random() * 6) + 's';
-    particlesContainer.appendChild(p);
+    p.style.animationDuration = (Math.random() * 7 + 4) + 's';
+    p.style.animationDelay = (Math.random() * 5) + 's';
+    dustContainer.appendChild(p);
   }
 
-  // Tło gwiezdne
-  const canvas = document.getElementById('stars');
+  // Tło głębokiej przestrzeni na canvasie (wielowarstwowe gwiazdy)
+  const canvas = document.getElementById('spaceCanvas');
   const ctx = canvas.getContext('2d');
   let w=0,h=0,stars=[];
   function resize(){
@@ -238,71 +238,65 @@ button{font:inherit;color:#eee}
     w=window.innerWidth;h=window.innerHeight;
     canvas.width=w*dpr;canvas.height=h*dpr;canvas.style.width=w+'px';canvas.style.height=h+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
-    const count=Math.min(130,Math.floor(w*h/9000));
-    stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.2+.2,a:Math.random()*.6+.12,s:Math.random()*.22+.04,p:Math.random()*6.28}));
+    const count=Math.min(220,Math.floor(w*h/6000));
+    stars=Array.from({length:count},()=>({x:Math.random()*w,y:Math.random()*h,r:Math.random()*1.5+.3,a:Math.random()*.8+.2,s:Math.random()*0.3+0.05,p:Math.random()*6.28}));
   }
   function draw(){
     ctx.clearRect(0,0,w,h);
-    for(const s of stars){s.p+=.012;s.y-=s.s;if(s.y<0){s.y=h;s.x=Math.random()*w}
-      const alpha=s.a*(.6+.4*Math.sin(s.p));
-      ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(230,230,245,${alpha})`;ctx.fill();}
+    for(const s of stars){
+      s.p+=.015;
+      s.y-=s.s;
+      if(s.y<0){s.y=h;s.x=Math.random()*w}
+      const alpha=s.a*(.5+.5*Math.sin(s.p));
+      ctx.beginPath();
+      ctx.arc(s.x,s.y,s.r,0,Math.PI*2);
+      ctx.fillStyle=`rgba(255,255,255,${alpha})`;
+      ctx.fill();
+    }
     requestAnimationFrame(draw);
   }
   resize();draw();window.addEventListener('resize',resize,{passive:true});
 
-  // EFEKT KLIKNIĘCIA BĄDŹ DOTKNIĘCIA (Unoszące się cząsteczki świetlne)
+  // Efekt kliknięcia w dowolnym miejscu (unoszące się świetlne cząsteczki zamiast kółek/krzyżyków)
   window.addEventListener('pointerdown', e => {
-    const pCount = 6; // ilość cząsteczek przy pojedynczym kliknięciu
+    const pCount = 8;
     for(let i=0; i<pCount; i++){
       const particle = document.createElement('div');
       particle.className = 'click-particle';
-      const size = Math.random() * 5 + 3;
+      const size = Math.random() * 6 + 2;
       particle.style.width = size + 'px';
       particle.style.height = size + 'px';
       particle.style.left = e.clientX + 'px';
       particle.style.top = e.clientY + 'px';
       
-      const dx = (Math.random() - 0.5) * 60;
-      const dy = Math.random() * 50 + 20;
+      const dx = (Math.random() - 0.5) * 100;
+      const dy = Math.random() * 90 + 30;
       particle.style.setProperty('--dx', dx + 'px');
       particle.style.setProperty('--dy', dy + 'px');
       
       document.body.appendChild(particle);
-      setTimeout(() => particle.remove(), 750);
+      setTimeout(() => particle.remove(), 800);
     }
   }, {passive: true});
 
-  // ANIMACJE DEDYKOWANE DLA POSZCZEGÓLNYCH ELEMENTÓW:
+  // Obsługa animacji po kliknięciu na konkretne elementy
   function triggerAnim(el, className){
+    if(!el) return;
     el.classList.remove(className);
-    void el.offsetWidth; // wymuszenie reflow
+    void el.offsetWidth;
     el.classList.add(className);
     setTimeout(() => el.classList.remove(className), 700);
   }
 
-  // 1. Profilowe (Obtót 3D + Flash Glow)
-  const avatarWrap = document.getElementById('avatarWrap');
-  const avatarImg = document.getElementById('avatarImg');
-  avatarWrap.addEventListener('click', () => triggerAnim(avatarImg, 'anim-avatar'));
+  document.getElementById('avatarWrap').addEventListener('click', () => triggerAnim(document.getElementById('avatarImg'), 'anim-avatar'));
+  document.getElementById('mainTitle').addEventListener('click', () => triggerAnim(document.getElementById('mainTitle'), 'anim-title'));
+  document.getElementById('countryBadge').addEventListener('click', () => triggerAnim(document.getElementById('countryBadge'), 'anim-country'));
+  document.getElementById('bioBox').addEventListener('click', () => triggerAnim(document.getElementById('bioBox'), 'anim-bio'));
 
-  // 2. Tytuł KOMORNIK (Glitch / Wave)
-  const mainTitle = document.getElementById('mainTitle');
-  mainTitle.addEventListener('click', () => triggerAnim(mainTitle, 'anim-title'));
-
-  // 3. Flaga / Kraj (Bounce)
-  const countryBadge = document.getElementById('countryBadge');
-  countryBadge.addEventListener('click', () => triggerAnim(countryBadge, 'anim-country'));
-
-  // 4. Bio (Rozświetlenie krawędzi)
-  const bioBox = document.getElementById('bioBox');
-  bioBox.addEventListener('click', () => triggerAnim(bioBox, 'anim-bio'));
-
-  // 5. Linki Social Media
   document.querySelectorAll('.link').forEach(link => {
     link.addEventListener('click', () => triggerAnim(link, 'anim-link'));
   });
 
-  // 6. Przyciski akcji
   document.querySelectorAll('.action').forEach(btn => {
     btn.addEventListener('click', () => triggerAnim(btn, 'anim-btn'));
   });
@@ -314,4 +308,15 @@ button{font:inherit;color:#eee}
   async function copyText(value, successMessage, fallbackMessage){
     try{
       if(navigator.clipboard && window.isSecureContext){
-      
+        await navigator.clipboard.writeText(value);
+        notify(successMessage);
+        return;
+      }
+    }catch(e){}
+    const field=document.createElement('textarea');
+    field.value=value;
+    field.setAttribute('readonly','');
+    field.style.position='fixed';
+    field.style.opacity='0';
+    field.style.left='-9999px';
+    document.body.appendChild(
