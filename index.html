@@ -12,7 +12,7 @@
 html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#151519 0%,#09090b 36%,#030304 78%);color:var(--white);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;display:grid;place-items:center;overflow-x:hidden;padding:34px 15px}
 
-/* Kosmiczna przestrzeń i gęste cząsteczki w tle */
+#networkCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0}
 #spaceCanvas{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:0}
 .ambient{position:fixed;width:500px;height:500px;border-radius:50%;background:#d9d9ff;opacity:.08;filter:blur(130px);top:35%;left:50%;transform:translate(-50%,-50%);animation:ambient 10s ease-in-out infinite alternate;pointer-events:none}
 
@@ -40,7 +40,6 @@ body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% 45%,#15
 .sfx-toggle:hover{border-color:#fff;color:#fff}
 .rule{height:1px;background:linear-gradient(90deg,transparent,#33333a,transparent);margin:16px 0 21px}
 
-/* Profil */
 .profile{text-align:center;display:flex;flex-direction:column;align-items:center}
 .avatar-wrap{width:116px;height:126px;margin:0 auto 12px;position:relative;display:grid;place-items:center;cursor:pointer;user-select:none}
 .avatar-photo{position:relative;z-index:1;width:104px;height:104px;border-radius:50%;object-fit:cover;object-position:center;border:2px solid rgba(255,255,255,.5);box-shadow:0 0 30px rgba(255,255,255,.4),0 0 60px rgba(200,200,255,.3);animation:avatarGlow 3.5s ease-in-out infinite alternate}
@@ -79,7 +78,6 @@ button{font:inherit;color:#eee}
 .toast{position:fixed;z-index:999;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#f0f0f2;color:#111;padding:10px 16px;border-radius:9px;font-size:12px;font-weight:700;box-shadow:0 8px 30px rgba(0,0,0,.8);transition:.3s;white-space:nowrap}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
-/* Cząsteczki po kliknięciu i smuga kursora */
 .click-particle{position:fixed;z-index:99;pointer-events:none;background:#fff;border-radius:50%;box-shadow:0 0 12px #fff,0 0 25px rgba(200,200,255,0.9);animation:clickParticleUp 0.8s cubic-bezier(0.1, 0.8, 0.3, 1) forwards}
 .cursor-trail{position:fixed;z-index:98;pointer-events:none;width:6px;height:6px;background:rgba(255,255,255,0.8);border-radius:50%;box-shadow:0 0 8px #fff;transform:translate(-50%,-50%);animation:fadeTrail 0.5s linear forwards}
 @keyframes fadeTrail{
@@ -92,7 +90,6 @@ button{font:inherit;color:#eee}
   100%{transform:translate(calc(-50% + var(--dx)), calc(-50% - var(--dy))) scale(0.1);opacity:0}
 }
 
-/* Animacje elementów */
 .anim-avatar{animation:avatarClick 0.7s cubic-bezier(.36,.07,.19,.97) !important}
 @keyframes avatarClick{
   0%{transform:scale(1)}
@@ -143,6 +140,7 @@ button{font:inherit;color:#eee}
 </style>
 </head>
 <body>
+<canvas id="networkCanvas"></canvas>
 <canvas id="spaceCanvas"></canvas>
 <div class="ambient"></div>
 <div class="space-dust" id="spaceDustContainer"></div>
@@ -308,7 +306,7 @@ function copyDiscord(btn) {
 function copyProfile(btn) {
   triggerAnim(btn, 'anim-btn');
   playBeep(1318, 0.12);
-  doCopy('komornikkk.vercel.app', 'Profile link copied: komornikkk.vercel.app');
+  doCopy('https://komornikkk.vercel.app/', 'Profile link copied: https://komornikkk.vercel.app/');
 }
 
 // --- ANIMACJE ELEMENTÓW ---
@@ -320,10 +318,10 @@ function triggerAnim(el, className) {
   setTimeout(function(){ el.classList.remove(className); }, 700);
 }
 
-// Cząsteczki po kliknięciu oraz płynna smuga kursora (Cursor Trail)
+// Cząsteczki po kliknięciu oraz smuga kursora
 window.addEventListener('pointerdown', function(e) {
   playBeep(220, 0.05);
-  for(var i = 0; i < 5; i++) {
+  for(var i = 0; i < 8; i++) {
     var p = document.createElement('div');
     p.className = 'click-particle';
     var sz = Math.random() * 5 + 2;
@@ -331,8 +329,8 @@ window.addEventListener('pointerdown', function(e) {
     p.style.height = sz + 'px';
     p.style.left = e.clientX + 'px';
     p.style.top = e.clientY + 'px';
-    p.style.setProperty('--dx', ((Math.random() - 0.5) * 80) + 'px');
-    p.style.setProperty('--dy', (Math.random() * 70 + 20) + 'px');
+    p.style.setProperty('--dx', ((Math.random() - 0.5) * 100) + 'px');
+    p.style.setProperty('--dy', (Math.random() * 90 + 20) + 'px');
     document.body.appendChild(p);
     (function(particle){
       setTimeout(function(){ particle.remove(); }, 800);
@@ -343,7 +341,7 @@ window.addEventListener('pointerdown', function(e) {
 let lastTrailTime = 0;
 window.addEventListener('pointermove', function(e) {
   const now = Date.now();
-  if (now - lastTrailTime > 40) { // ograniczenie częstotliwości tworzenia smug
+  if (now - lastTrailTime > 40) {
     lastTrailTime = now;
     const trail = document.createElement('div');
     trail.className = 'cursor-trail';
@@ -370,7 +368,7 @@ if (dust) {
   }
 }
 
-// Renderowanie Canvas
+// Renderowanie Canvas — gwiazdy
 var cvs = document.getElementById('spaceCanvas');
 if (cvs) {
   var ctx = cvs.getContext('2d');
@@ -390,7 +388,7 @@ if (cvs) {
 
   function drawStars() {
     ctx.clearRect(0, 0, w, h);
-    for (var k = 0; k < stars.length; k++) {
+    for (var k=0; k<stars.length; k++) {
       var st = stars[k];
       st.p += 0.015;
       st.y -= st.s;
@@ -404,12 +402,11 @@ if (cvs) {
     requestAnimationFrame(drawStars);
   }
   drawStars();
-
-  window.onresize = function() {
-    w = cvs.width = window.innerWidth;
-    h = cvs.height = window.innerHeight;
-  };
 }
-</script>
-</body>
-</html>
+
+// --- SIEĆ POŁĄCZONYCH BIAŁYCH CZĄSTECZEK ---
+var netCanvas = document.getElementById('networkCanvas');
+if (netCanvas) {
+  var nctx = netCanvas.getContext('2d');
+  var nw = netCanvas.width = window.innerWidth;
+  var nh = netCanvas.height 
