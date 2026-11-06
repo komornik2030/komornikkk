@@ -177,11 +177,6 @@ button{font:inherit;color:#eee}
       <span class="linktext"><div class="linktitle">TikTok</div><div class="linksub">@__komornik</div></span>
       <span class="arrow">↗</span>
     </a>
-    <a class="link" href="https://vm.tiktok.com/ZN8fAe1RS/" target="_blank" rel="noopener noreferrer" onclick="triggerAnim(this, 'anim-link'); playBeep(700, 0.08);">
-      <span class="iconbox"><svg viewBox="0 0 24 24"><path d="M19.6 7.1a6.8 6.8 0 0 1-4.2-1.4v8.1a6.1 6.1 0 1 1-5.3-6.1v3.4a2.8 2.8 0 1 0 2 2.7V2h3.3c.2 2.2 1.8 4 4.2 4.3v.8Z"/></svg></span>
-      <span class="linktext"><div class="linktitle">TikTok Video</div><div class="linksub">Latest video</div></span>
-      <span class="arrow">↗</span>
-    </a>
     <a class="link" href="https://youtube.com/@komornik_2022" target="_blank" rel="noopener noreferrer" onclick="triggerAnim(this, 'anim-link'); playBeep(700, 0.08);">
       <span class="iconbox"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg></span>
       <span class="linktext"><div class="linktitle">YouTube</div><div class="linksub">@komornik_2022</div></span>
@@ -399,4 +394,22 @@ if (cvs) {
       var st = stars[k];
       st.p += 0.015;
       st.y -= st.s;
-      
+      if (st.y < 0) { st.y = h; st.x = Math.random() * w; }
+      var alpha = st.a * (0.5 + 0.5 * Math.sin(st.p));
+      ctx.beginPath();
+      ctx.arc(st.x, st.y, st.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + alpha + ')';
+      ctx.fill();
+    }
+    requestAnimationFrame(drawStars);
+  }
+  drawStars();
+
+  window.onresize = function() {
+    w = cvs.width = window.innerWidth;
+    h = cvs.height = window.innerHeight;
+  };
+}
+</script>
+</body>
+</html>
